@@ -14,10 +14,29 @@ export class ChatService {
   }
 
   login(userName: string) : Observable<boolean> {
-      var observable = new Observable();
-      this.socket.emit("adduser", userName, succeeded => {
-
+      let observable = new Observable( observer => {
+          this.socket.emit("adduser", userName, succeeded => {
+              console.log("Reply received");
+             observer.next(succeeded);
+          });
       });
+
+      return observable;
+  }
+
+  getRoomList() : Observable<string[]> {
+      let obs = new Observable(observer => {
+          this.socket.emit("rooms");
+          this.socket.on("roomlist", (lst) => {
+              let strArr: string[] = [];
+              for (var x in lst) {
+                  strArr.push(x);
+              }
+              observer.next(strArr);
+          })
+      });
+
+      return obs;
   }
 
 }

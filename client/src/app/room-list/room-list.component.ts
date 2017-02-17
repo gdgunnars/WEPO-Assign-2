@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ChatService } from '../chat.service';
 
 @Component({
   selector: 'app-room-list',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RoomListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private chatService : ChatService) { }
+
+  rooms: string[];
 
   ngOnInit() {
+      this.chatService.getRoomList().subscribe(lst => {
+          this.rooms = lst;
+      })
   }
 
 }
