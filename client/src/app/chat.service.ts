@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as io from "socket.io-client";
+import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class ChatService {
@@ -12,11 +13,11 @@ export class ChatService {
       });
   }
 
-  login(userName: string) : boolean {
+  login(userName: string) : Observable<boolean> {
+      var observable = new Observable();
       this.socket.emit("adduser", userName, succeeded => {
-          return succeeded;
+
       });
-      return true;
   }
 
 }
