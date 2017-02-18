@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
 	selector: 'app-room',
@@ -16,5 +16,4 @@ export class RoomComponent implements OnInit {
 	ngOnInit() {
 		this.roomId = this.route.snapshot.params['id'];
 	}
-
 }
