@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -6,7 +6,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 	templateUrl: './room.component.html',
 	styleUrls: ['./room.component.css']
 })
-export class RoomComponent implements OnInit {
+export class RoomComponent implements OnInit, AfterViewChecked {
+	@ViewChild('scrollMe') private myScrollContainer: ElementRef;
 
 	roomId: string;
 
@@ -15,5 +16,16 @@ export class RoomComponent implements OnInit {
 
 	ngOnInit() {
 		this.roomId = this.route.snapshot.params['id'];
+		this.scrollToBottom();
+	}
+
+	ngAfterViewChecked() {
+		this.scrollToBottom();
+	}
+
+	scrollToBottom(): void {
+		try {
+			this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+		} catch(err) { }
 	}
 }

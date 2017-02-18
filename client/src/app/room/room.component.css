@@ -1,0 +1,39 @@
+.message-bubble
+{
+    padding: 10px 0px 10px 0px;
+}
+
+.message-bubble:nth-child(even) { background-color: #F5F5F5; }
+
+.message-bubble > *
+{
+    padding-left: 2%;
+}
+
+.panel-body { padding: 0px;}
+
+.panel-heading { background-color: #3d6da7 !important; color: white !important; }
+
+.zero_margin {
+    margin: 0;
+}
+
+.bottom_of_page {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.fullscreen {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 10;
+  }
+
+.pre-scrollable {
+  max-height: 86.7vh;
+  overflow-y: scroll;
+}

@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css");
 
-body {
-    background-color: black;
+body, html {
+    background-color: #282828;
+    height: 100%;
+    margin: 0;
 }
