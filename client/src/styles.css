@@ -1,8 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
-@import url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css");
 
+@import url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css");
 body, html {
     background-color: #282828;
     height: 100%;
     margin: 0;
+}
+
+.message-bubble
+{
+    padding: 10px 0px 10px 0px;
+}
+
+.message-bubble:nth-child(even) { background-color: #F5F5F5; }
+
+.message-bubble > *
+{
+    padding-left: 25px;
+}
+
+.panel-body { padding: 0px; margin: 0px;}
+
+.panel-heading { background-color: #3d6da7 !important; color: white !important; }
+
+.pre-scrollable {
+  max-height: 80vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.container-fluid {
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-right: auto;
+    margin-left: auto;
 }
