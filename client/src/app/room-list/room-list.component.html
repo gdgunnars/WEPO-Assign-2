@@ -1,8 +1,10 @@
-<ul>
-    <li *ngFor="let room of rooms">
-        <a [routerLink]="['/rooms', room]">{{room}}</a>
-    </li>
-</ul>
+<div class="col-md-2">
+    <ul>
+        <li *ngFor="let room of rooms">
+            <a [routerLink]="['/rooms', room]">{{room}}</a>
+        </li>
+    </ul>
 
-<input [(ngModel)]="newRoomName" />
-<button class="btn btn-primary" (click)="onNewRoom()">Add new room</button>
+    <input [(ngModel)]="newRoomName" />
+    <button class="btn btn-primary" (click)="onNewRoom()">Add new room</button>
+</div>
