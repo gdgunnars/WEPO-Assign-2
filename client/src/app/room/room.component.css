@@ -37,3 +37,8 @@
   max-height: 86.7vh;
   overflow-y: scroll;
 }
+
+.container-fluid {
+    margin: 0 auto;
+    width: 80%;
+}

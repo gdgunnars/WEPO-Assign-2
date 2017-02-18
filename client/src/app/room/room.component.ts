@@ -1,11 +1,20 @@
-import { Component, OnInit, AfterViewChecked, ViewChild, ElementRef } from '@angular/core';
+import { NgModule, Component, OnInit, AfterViewChecked, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+
+import { RoomListComponent } from '../room-list/room-list.component';
+
+
 
 @Component({
 	selector: 'app-room',
 	templateUrl: './room.component.html',
-	styleUrls: ['./room.component.css']
+	styleUrls: ['./room.component.css'],
 })
+
+@NgModule({
+  declarations: [ RoomListComponent ]
+})
+
 export class RoomComponent implements OnInit, AfterViewChecked {
 	@ViewChild('scrollMe') private myScrollContainer: ElementRef;
 
