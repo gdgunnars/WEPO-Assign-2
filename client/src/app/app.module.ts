@@ -11,28 +11,28 @@ import { RoomComponent } from './room/room.component';
 import { ChatService } from './chat.service';
 
 @NgModule({
-	declarations: [
-		AppComponent,
-		LoginComponent,
-		RoomListComponent,
-		RoomComponent
-	],
-	imports: [
-		BrowserModule,
-		FormsModule,
-		HttpModule,
-		RouterModule.forRoot([{
-			path: "",
-			redirectTo: "login",
-			pathMatch: "full"
+    declarations: [
+        AppComponent,
+        LoginComponent,
+        RoomListComponent,
+        RoomComponent
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpModule,
+        RouterModule.forRoot([{
+			path: '',
+			redirectTo: 'login',
+			pathMatch: 'full'
 		}, {
-				path: "login",
+				path: 'login',
 				component: LoginComponent
 			}, {
-				path: "rooms",
+				path: 'rooms',
 				component: RoomListComponent
 			}, {
-				path: "rooms/:id",
+				path: 'rooms/:id',
 				component: RoomComponent
 			}])
 	],
