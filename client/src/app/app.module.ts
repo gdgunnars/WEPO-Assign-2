@@ -22,21 +22,21 @@ import { ChatService } from './chat.service';
         FormsModule,
         HttpModule,
         RouterModule.forRoot([{
-			path: '',
-			redirectTo: 'login',
-			pathMatch: 'full'
-		}, {
-				path: 'login',
-				component: LoginComponent
-			}, {
-				path: 'rooms',
-				component: RoomListComponent
-			}, {
-				path: 'rooms/:id',
-				component: RoomComponent
-			}])
-	],
-	providers: [ChatService],
-	bootstrap: [AppComponent]
+            path: '',
+            redirectTo: 'login',
+            pathMatch: 'full'
+        }, {
+            path: 'login',
+            component: LoginComponent
+        }, {
+            path: 'rooms',
+            component: RoomListComponent
+        }, {
+            path: 'rooms/:id',
+            component: RoomComponent
+        }])
+    ],
+    providers: [ChatService],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

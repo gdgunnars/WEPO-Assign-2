@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class ChatService {
-  socket : any;
+  socket: any;
 
   constructor() {
       this.socket = io ('http://localhost:8080/');
@@ -13,7 +13,7 @@ export class ChatService {
       });
   }
 
-  login(userName: string) : Observable<boolean> {
+  login(userName: string): Observable<boolean> {
       const observable = new Observable( observer => {
           this.socket.emit('adduser', userName, succeeded => {
               console.log('Reply received');
@@ -24,7 +24,7 @@ export class ChatService {
       return observable;
   }
 
-  getRoomList() : Observable<string[]> {
+  getRoomList(): Observable<string[]> {
       const obs = new Observable(observer => {
           this.socket.emit('rooms');
           this.socket.on('roomlist', (lst) => {
@@ -41,7 +41,7 @@ export class ChatService {
       return obs;
   }
 
-  addRoom(roomName: string) : Observable<boolean> {
+  addRoom(roomName: string): Observable<boolean> {
       // TODO: Validate that the room name is valid! (lol)
       const observable = new Observable(observer => {
           const param = {
