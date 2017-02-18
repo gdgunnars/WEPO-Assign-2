@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
             console.log('Succeess!!');
             this.loginFailed = !succeeded;
             if (succeeded === true) {
-                this.router.navigate(['/rooms']);
+                this.router.navigate(['/rooms/lobby']);
             }
         });
     }
