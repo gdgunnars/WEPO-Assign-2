@@ -1,16 +1,15 @@
-/* tslint:disable:no-unused-variable */
-
 import { TestBed, async, inject } from '@angular/core/testing';
 import { ChatService } from './chat.service';
+import {} from '@jasmine';
 
 describe('ChatService', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [ChatService]
-    });
-  });
+	beforeEach(() => {
+		TestBed.configureTestingModule({
+			providers: [ChatService]
+		});
+	});
 
-  it('should ...', inject([ChatService], (service: ChatService) => {
-    expect(service).toBeTruthy();
-  }));
+	it('should ...', inject([ChatService], (service: ChatService) => {
+		expect(service).toBeTruthy();
+	}));
 });

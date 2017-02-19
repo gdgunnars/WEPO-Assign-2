@@ -14,21 +14,12 @@ h1 {
     color: #333333;
 }
 
-.stroke {
- color: #FFF; /* text color */
- font-size: 4em;
- -webkit-text-stroke: 2px #000; /* stroke color and weight */
-}
-
-div.well{
-  height: 250px;
-}
-
 .Absolute-Center {
   margin: auto;
   position: absolute;
   top: 0; left: 0; bottom: 0; right: 0;
 }
+
 
 .Absolute-Center.is-Responsive {
   width: 50%;
