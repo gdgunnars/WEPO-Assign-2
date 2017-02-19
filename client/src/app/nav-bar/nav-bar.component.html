@@ -9,7 +9,7 @@
           <a [routerLink]="['/rooms']">Room List</a>
         </li>
         <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" *ngFor="let channel of channels">
-          <a [routerLink]="['/rooms', channel]">{{channel}}</a>
+          <a [routerLink]="['/rooms', channel]" (click)="onActive(channel)">{{channel}}</a>
         </li>
       </ul>
     </div>

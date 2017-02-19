@@ -71,7 +71,6 @@ export class ChatService {
 			this.socket.emit('joinroom', param, function(a: boolean, b) {
 				observer.next(a);
 			});
-			this.getChannelsForCurrentUser();
 		});
 		return observable;
 	}

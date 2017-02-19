@@ -37,6 +37,9 @@ import { GlobalEventManagerService } from './global-event-manager.service';
 		}, {
 			path: 'rooms/:id',
 			component: RoomComponent
+		}, {
+			path: 'rooms/:id',
+			component: NavBarComponent
 		}])
 	],
 	providers: [ChatService, GlobalEventManagerService],
