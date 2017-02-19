@@ -1,5 +1,6 @@
 /* login box css */
-body{
+
+body {
   background: #00589F;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00589F', endColorstr='#0073CF', GradientType=0);
   background: -webkit-linear-gradient(to bottom, #00589F 50%, #0073CF) !important;
@@ -11,15 +12,17 @@ body{
 }
 
 h1 {
-    color: #333333;
+  color: #333333;
 }
 
 .Absolute-Center {
   margin: auto;
   position: absolute;
-  top: 0; left: 0; bottom: 0; right: 0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }
-
 
 .Absolute-Center.is-Responsive {
   width: 50%;
