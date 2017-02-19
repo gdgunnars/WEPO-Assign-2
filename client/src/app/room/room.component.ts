@@ -11,7 +11,9 @@ import { ChatService } from '../chat.service';
 
 
 export class RoomComponent implements OnInit, AfterViewChecked {
-	@ViewChild('scrollMe') private myScrollContainer: ElementRef;
+	@ViewChild('scrollChat') private myChatScrollContainer: ElementRef;
+	@ViewChild('scrollUsers') private myUserScrollContainer: ElementRef;
+	@ViewChild('scrollOps') private myOpsScrollContainer: ElementRef;
 
 	users: string[];
 	ops: string[];
@@ -53,8 +55,12 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 	}
 
 	onSendMessage() {
-		this.chatService.sendMsg(this.roomId, this.newMessage);
-		this.newMessage = "";
+
+		if (this.newMessage !== '') {
+			this.chatService.sendMsg(this.roomId, this.newMessage);
+			this.newMessage = "";
+			this.scrollToBottom();
+		}
 	}
 
 	ngAfterViewChecked() {
@@ -63,7 +69,9 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 
 	scrollToBottom(): void {
 		try {
-			this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+			this.myChatScrollContainer.nativeElement.scrollTop = this.myChatScrollContainer.nativeElement.scrollHeight;
+			this.myUserScrollContainer.nativeElement.scrollTop = this.myUserScrollContainer.nativeElement.scrollHeight;
+			this.myOpsScrollContainer.nativeElement.scrollTop = this.myOpsScrollContainer.nativeElement.scrollHeight;
 		} catch(err) { }
 	}
 
