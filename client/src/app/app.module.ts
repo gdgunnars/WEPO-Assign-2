@@ -9,13 +9,16 @@ import { LoginComponent } from './login/login.component';
 import { RoomListComponent } from './room-list/room-list.component';
 import { RoomComponent } from './room/room.component';
 import { ChatService } from './chat.service';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { GlobalEventManagerService } from './global-event-manager.service';
 
 @NgModule({
     declarations: [
         AppComponent,
         LoginComponent,
         RoomListComponent,
-        RoomComponent
+        RoomComponent,
+        NavBarComponent
     ],
     imports: [
         BrowserModule,
@@ -36,7 +39,7 @@ import { ChatService } from './chat.service';
             component: RoomComponent
         }])
     ],
-    providers: [ChatService],
+    providers: [ChatService, GlobalEventManagerService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

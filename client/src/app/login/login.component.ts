@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChatService } from '../chat.service';
 import { Router } from '@angular/router';
+import { GlobalEventManagerService } from "./../global-event-manager.service";
 
 @Component({
     selector: 'app-login',
@@ -11,7 +12,9 @@ export class LoginComponent implements OnInit {
     userName: string;
     loginFailed: boolean;
 
-    constructor(private chatService: ChatService, private router: Router) {
+    constructor(private chatService: ChatService,
+                private router: Router,
+                private globalEventManagerService: GlobalEventManagerService) {
 
     }
 
@@ -26,7 +29,9 @@ export class LoginComponent implements OnInit {
             console.log('Succeess!!');
             this.loginFailed = !succeeded;
             if (succeeded === true) {
-                this.router.navigate(['/rooms/lobby']);
+                //this.globalEventsManager.showNavBar(true);
+                this.globalEventManagerService.showNavBar(true);
+                this.router.navigate(['/rooms']);
             }
         });
     }

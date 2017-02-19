@@ -1,9 +1,7 @@
-import { NgModule, Component, OnInit, AfterViewChecked, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { RoomListComponent } from '../room-list/room-list.component';
-
-
+import { ChatService } from '../chat.service';
 
 @Component({
 	selector: 'app-room',
@@ -11,21 +9,23 @@ import { RoomListComponent } from '../room-list/room-list.component';
 	styleUrls: ['./room.component.css'],
 })
 
-@NgModule({
-  declarations: [ RoomListComponent ]
-})
 
 export class RoomComponent implements OnInit, AfterViewChecked {
 	@ViewChild('scrollMe') private myScrollContainer: ElementRef;
 
+	users: string[];
 	roomId: string;
 
 	constructor(private router: Router,
-		private route: ActivatedRoute) { }
+		private route: ActivatedRoute,
+		private chatService: ChatService) { }
 
 	ngOnInit() {
 		this.roomId = this.route.snapshot.params['id'];
 		this.scrollToBottom();
+		this.chatService.getUserList().subscribe(lst => {
+            this.users = lst;
+        });
 	}
 
 	ngAfterViewChecked() {

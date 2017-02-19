@@ -47,8 +47,9 @@ export class ChatService {
           this.socket.on('userlist', (lst) => {
               const strArr: string[] = [];
               for (const x in lst) {
+                  console.log(lst);
                   if (lst.hasOwnProperty(x)) {
-                      strArr.push(x);
+                      strArr.push(lst[x]);
                   }
               }
               observer.next(strArr);
