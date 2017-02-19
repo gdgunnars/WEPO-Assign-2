@@ -5,8 +5,12 @@
         <a class="navbar-brand">Chatty</a>
       </div>
       <ul class="nav navbar-nav">
-        <li class="active"><a [routerLink]="['/rooms']">Room List</a></li>
-        <li><a [routerLink]="['/rooms/lobby']">Lobby</a></li>
+        <li [class.active]="roomListButtonActive">
+            <a [routerLink]="['/rooms']" (click)='setActive("roomList")'>Room List</a>
+        </li>
+        <li [class.active]="lobbyButtonActive">
+            <a [routerLink]="['/rooms/lobby']" (click)='setActive("lobby")'>Lobby</a>
+        </li>
         <!--<button class="btn btn-default" (click)="currentRoom()">Current Room</button>
         <li class="active"><a href="#" (click)="onLogin()">Room List</a></li>
         <li><a href="#">Room</a></li>-->

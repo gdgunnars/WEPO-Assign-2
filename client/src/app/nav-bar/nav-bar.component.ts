@@ -8,6 +8,8 @@ import { GlobalEventManagerService } from './../global-event-manager.service';
 })
 export class NavBarComponent implements OnInit {
     showNavBar: boolean = false;
+    roomListButtonActive: boolean = true;
+    lobbyButtonActive: boolean = false;
 
     constructor(private globalEventManagerService: GlobalEventManagerService) {
           this.globalEventManagerService.showNavBarEmitter.subscribe((mode)=>{
@@ -19,6 +21,17 @@ export class NavBarComponent implements OnInit {
       }
 
   ngOnInit() {
+  }
+
+  setActive(buttonName: string) {
+      this.roomListButtonActive = false;
+      this.lobbyButtonActive = false;
+      if (buttonName === 'roomList') {
+          this.roomListButtonActive = true;
+      }
+      else if (buttonName === 'lobby') {
+          this.lobbyButtonActive = true;
+      }
   }
 
 
