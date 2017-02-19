@@ -6,12 +6,22 @@ import { Observable } from 'rxjs/Observable';
 export class ChatService {
 	socket: any;
 
+<<<<<<< HEAD
+  constructor() {
+      //this.socket = io ('http://localhost:8080/');
+      this.socket = io ('http://192.168.0.137:8080/');
+      this.socket.on('connect', function() {
+            console.log('connect');
+      });
+  }
+=======
 	constructor() {
 		this.socket = io('http://localhost:8080/');
 		this.socket.on('connect', function() {
 			console.log('connect');
 		});
 	}
+>>>>>>> 1832125f619b5103258e73ef20ce259356792699
 
 	login(userName: string): Observable<boolean> {
 		const observable = new Observable(observer => {
@@ -71,13 +81,13 @@ export class ChatService {
 		return observable;
 	}
 
-	connectToRoom(roomId: string) {
-		const param = {
-			room: roomId
-		};
-		this.socket.emit('joinroom', param, function(a: boolean, b) {
-			console.log('getRoom returns: ' + a);
-		});
+  connectToRoom(roomId: string) {
+      var param = {
+          room : roomId
+      }
+      this.socket.emit("joinroom", param, function(a: boolean, b){
+          console.log("connectToRoom returns: " + a);
+      });
 
 	}
 
@@ -116,5 +126,37 @@ export class ChatService {
 		});
 		return obs;
 	}
+
+  getTopic() : Observable<string> {
+      const obs = new Observable(observer => {
+         this.socket.on("updatetopic", (room, topic, userName) => {
+             let ret = {
+                 roomName: room,
+                 topic: topic,
+                 user: userName
+             }
+             observer.next(ret);
+         })
+      });
+      return obs;
+  }
+
+  setTopic(room: string, topic: string) : Observable<boolean> {
+      const obs = new Observable(observer => {
+          const param = {
+              room: room,
+              topic: topic
+          }
+          this.socket.emit("settopic", param, function(a: boolean){
+              observer.next(a);
+          });
+      });
+      return obs;
+  }
+
+
+
+
+
 
 }
