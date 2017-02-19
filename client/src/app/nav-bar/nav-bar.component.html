@@ -5,13 +5,10 @@
         <a class="navbar-brand">Chatty</a>
       </div>
       <ul class="nav navbar-nav">
-        <li [class.active]="roomListButtonActive">
-          <a [routerLink]="['/rooms']" (click)='setActive("roomList")'>Room List</a>
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+          <a [routerLink]="['/rooms']">Room List</a>
         </li>
-        <li [class.active]="lobbyButtonActive">
-          <a [routerLink]="['/rooms/lobby']" (click)='setActive("lobby")'>Lobby</a>
-        </li>
-        <li *ngFor="let channel of channels">
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" *ngFor="let channel of channels">
           <a [routerLink]="['/rooms', channel]">{{channel}}</a>
         </li>
       </ul>

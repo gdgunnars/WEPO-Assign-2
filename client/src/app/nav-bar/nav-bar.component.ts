@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChatService } from '../chat.service';
 import { GlobalEventManagerService } from './../global-event-manager.service';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-nav-bar',
@@ -9,8 +10,6 @@ import { GlobalEventManagerService } from './../global-event-manager.service';
 })
 export class NavBarComponent implements OnInit {
 	showNavBar = false;
-	roomListButtonActive = true;
-	lobbyButtonActive = false;
 	channels: string[];
 
 	constructor(private chatService: ChatService,
@@ -26,18 +25,7 @@ export class NavBarComponent implements OnInit {
 	ngOnInit() {
 		this.chatService.getChannelsForCurrentUser().subscribe(lst => {
 			this.channels = lst;
+
 		});
 	}
-
-	setActive(buttonName: string) {
-		this.roomListButtonActive = false;
-		this.lobbyButtonActive = false;
-		if (buttonName === 'roomList') {
-			this.roomListButtonActive = true;
-		} else if (buttonName === 'lobby') {
-			this.lobbyButtonActive = true;
-		}
-	}
-
-
 }
