@@ -55,7 +55,7 @@ export class ChatService {
       return observable;;
   }
 
-  getRoom(roomId: string) {
+  connectToRoom(roomId: string) {
       var param = {
           room : roomId
       }

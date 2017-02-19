@@ -20,7 +20,7 @@ export class RoomComponent implements OnInit {
 
 	ngOnInit() {
 		this.roomId = this.route.snapshot.params['id'];
-		this.chatService.getRoom(this.roomId);
+		this.chatService.connectToRoom(this.roomId);
 		this.chatService.getMessage().subscribe(messages => {
 			if(messages["roomName"] === this.roomId){
 				this.messageHistory = messages["msg"];
