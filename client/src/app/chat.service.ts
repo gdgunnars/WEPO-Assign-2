@@ -6,22 +6,13 @@ import { Observable } from 'rxjs/Observable';
 export class ChatService {
 	socket: any;
 
-<<<<<<< HEAD
   constructor() {
-      //this.socket = io ('http://localhost:8080/');
-      this.socket = io ('http://192.168.0.137:8080/');
+      this.socket = io ('http://localhost:8080/');
+      //this.socket = io ('http://192.168.0.137:8080/');
       this.socket.on('connect', function() {
             console.log('connect');
       });
   }
-=======
-	constructor() {
-		this.socket = io('http://localhost:8080/');
-		this.socket.on('connect', function() {
-			console.log('connect');
-		});
-	}
->>>>>>> 1832125f619b5103258e73ef20ce259356792699
 
 	login(userName: string): Observable<boolean> {
 		const observable = new Observable(observer => {
@@ -154,9 +145,45 @@ export class ChatService {
       return obs;
   }
 
+  setOp(room: string, user: string) : Observable<boolean> {
+      const obs = new Observable(observer => {
+          const param = {
+              room: room,
+              user: user
+          }
+          this.socket.emit("op", param, function(a: boolean) {
+              observer.next(a);
+          });
+      });
+      return obs;
+  }
 
+  deOp(room: string, user: string) : Observable<boolean> {
+      const obs = new Observable(observer => {
+          const param = {
+              room: room,
+              user: user
+          }
+          this.socket.emit("deop", param, function(a: boolean) {
+              observer.next(a);
+          });
+      });
+      return obs;
+  }
 
-
+  kickUser(room: string, user: string) : Observable<boolean> {
+      console.log("Im kicking a user: " + user);
+      const obs = new Observable(observer => {
+          const param = {
+              room: room,
+              user: user
+          }
+          this.socket.emit("kick", param, function(a: boolean) {
+              observer.next(a);
+          });
+      });
+      return obs;
+  }
 
 
 }
