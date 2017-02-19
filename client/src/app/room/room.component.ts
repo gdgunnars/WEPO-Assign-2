@@ -34,7 +34,7 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 				this.messageHistory = messages['msg'];
 			}
 		});
-		this.chatService.getUsers().subscribe( obj => {
+		this.chatService.getUsers().subscribe(obj => {
 			if (obj['roomId'] === this.roomId) {
 				const usrArr: string[] = [];
 				const opArr: string[] = [];
@@ -55,8 +55,8 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 				}
 			}
 		});
-		this.chatService.getTopic().subscribe( obj => {
-			if(obj['roomName'] === this.roomId){
+		this.chatService.getTopic().subscribe(obj => {
+			if (obj['roomName'] === this.roomId) {
 				this.roomTopic = obj['topic'];
 			}
 		});
@@ -66,7 +66,7 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 	onSendMessage() {
 
 		if (this.newMessage !== '') {
-			if(this.newMessage.substring(0,1) === "!"){
+			if (this.newMessage.substring(0, 1) === '!') {
 				this.commandParsing(this.newMessage);
 			}
 			this.chatService.sendMsg(this.roomId, this.newMessage);
@@ -88,32 +88,32 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 	}
 
 	commandParsing(msg: string) {
-		if(this.newMessage.substring(0,6) === "!topic") {
+		if (this.newMessage.substring(0, 6) === '!topic') {
 			this.chatService.setTopic(this.roomId, this.newMessage.substring(6)).subscribe(succeded => {
-				if(succeded === false) {
+				if (succeded === false) {
 					console.log("You don't have any ops bro!!");
 				}
 			});
-		} else if(this.newMessage.substring(0,3) === "!op") {
+		} else if (this.newMessage.substring(0, 3) === '!op') {
 			if (this.users.some(x => x === this.newMessage.substring(4))) {
 				this.chatService.setOp(this.roomId, this.newMessage.substring(4)).subscribe(succeded => {
-					if(succeded === false) {
+					if (succeded === false) {
 						console.log("You don't have any ops bro!!");
 					}
 				});
 			}
-		} else if(this.newMessage.substring(0,5) === "!deop") {
+		} else if (this.newMessage.substring(0, 5) === '!deop') {
 			if (this.ops.some(x => x === this.newMessage.substring(6))) {
 				this.chatService.deOp(this.roomId, this.newMessage.substring(6)).subscribe(succeded => {
-					if(succeded === false) {
+					if (succeded === false) {
 						console.log("You don't have any ops bro!!");
 					}
 				});
 			}
-		} else if(this.newMessage.substring(0,5) === "!kick") {
-			if(this.ops.some(x => x === this.newMessage.substring(6)) || this.users.some(x => x === this.newMessage.substring(6))) {
+		} else if (this.newMessage.substring(0, 5) === '!kick') {
+			if (this.ops.some(x => x === this.newMessage.substring(6)) || this.users.some(x => x === this.newMessage.substring(6))) {
 				this.chatService.kickUser(this.roomId, this.newMessage.substring(6)).subscribe(succeded => {
-					if(succeded === false) {
+					if (succeded === false) {
 						console.log("you do not have da ops man!");
 					}
 				});

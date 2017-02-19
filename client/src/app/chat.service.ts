@@ -6,13 +6,14 @@ import { Observable } from 'rxjs/Observable';
 export class ChatService {
 	socket: any;
 
-  constructor() {
-      this.socket = io ('http://localhost:8080/');
-      //this.socket = io ('http://192.168.0.137:8080/');
-      this.socket.on('connect', function() {
-            console.log('connect');
-      });
-  }
+
+	constructor() {
+		this.socket = io('http://localhost:8080/');
+		// this.socket = io ('http://192.168.0.137:8080/');
+		this.socket.on('connect', function() {
+			console.log('connect');
+		});
+	}
 
 	login(userName: string): Observable<boolean> {
 		const observable = new Observable(observer => {
@@ -72,13 +73,13 @@ export class ChatService {
 		return observable;
 	}
 
-  connectToRoom(roomId: string) {
-      var param = {
-          room : roomId
-      }
-      this.socket.emit("joinroom", param, function(a: boolean, b){
-          console.log("connectToRoom returns: " + a);
-      });
+	connectToRoom(roomId: string) {
+		const param = {
+			room: roomId
+		};
+		this.socket.emit('joinroom', param, function(a: boolean, b) {
+			console.log('connectToRoom returns: ' + a);
+		});
 
 	}
 
@@ -118,72 +119,71 @@ export class ChatService {
 		return obs;
 	}
 
-  getTopic() : Observable<string> {
-      const obs = new Observable(observer => {
-         this.socket.on("updatetopic", (room, topic, userName) => {
-             let ret = {
-                 roomName: room,
-                 topic: topic,
-                 user: userName
-             }
-             observer.next(ret);
-         })
-      });
-      return obs;
-  }
+	getTopic(): Observable<string> {
+		const obs = new Observable(observer => {
+			this.socket.on('updatetopic', (room, topic, userName) => {
+				const ret = {
+					roomName: room,
+					topic: topic,
+					user: userName
+				};
+				observer.next(ret);
+			});
+		});
+		return obs;
+	}
 
-  setTopic(room: string, topic: string) : Observable<boolean> {
-      const obs = new Observable(observer => {
-          const param = {
-              room: room,
-              topic: topic
-          }
-          this.socket.emit("settopic", param, function(a: boolean){
-              observer.next(a);
-          });
-      });
-      return obs;
-  }
+	setTopic(room: string, topic: string): Observable<boolean> {
+		const obs = new Observable(observer => {
+			const param = {
+				room: room,
+				topic: topic
+			};
+			this.socket.emit('settopic', param, function(a: boolean) {
+				observer.next(a);
+			});
+		});
+		return obs;
+	}
 
-  setOp(room: string, user: string) : Observable<boolean> {
-      const obs = new Observable(observer => {
-          const param = {
-              room: room,
-              user: user
-          }
-          this.socket.emit("op", param, function(a: boolean) {
-              observer.next(a);
-          });
-      });
-      return obs;
-  }
+	setOp(room: string, user: string): Observable<boolean> {
+		const obs = new Observable(observer => {
+			const param = {
+				room: room,
+				user: user
+			};
+			this.socket.emit('op', param, function(a: boolean) {
+				observer.next(a);
+			});
+		});
+		return obs;
+	}
 
-  deOp(room: string, user: string) : Observable<boolean> {
-      const obs = new Observable(observer => {
-          const param = {
-              room: room,
-              user: user
-          }
-          this.socket.emit("deop", param, function(a: boolean) {
-              observer.next(a);
-          });
-      });
-      return obs;
-  }
+	deOp(room: string, user: string): Observable<boolean> {
+		const obs = new Observable(observer => {
+			const param = {
+				room: room,
+				user: user
+			};
+			this.socket.emit('deop', param, function(a: boolean) {
+				observer.next(a);
+			});
+		});
+		return obs;
+	}
 
-  kickUser(room: string, user: string) : Observable<boolean> {
-      console.log("Im kicking a user: " + user);
-      const obs = new Observable(observer => {
-          const param = {
-              room: room,
-              user: user
-          }
-          this.socket.emit("kick", param, function(a: boolean) {
-              observer.next(a);
-          });
-      });
-      return obs;
-  }
+	kickUser(room: string, user: string): Observable<boolean> {
+		const obs = new Observable(observer => {
+			const param = {
+				room: room,
+				user: user
+			};
+			this.socket.emit('kick', param, function(a: boolean) {
+				observer.next(a);
+			});
+		});
+		return obs;
+	}
 
 
 }
