@@ -151,14 +151,14 @@ export class ChatService {
 		return obs;
 	}
 
-	getKickedUsers() : Observable<Object> {
-		const obs = new Observable(observer =>{
+	getKickedUsers(): Observable<Object> {
+		const obs = new Observable(observer => {
 			this.socket.on('kicked', (room, kickedUser, byop) => {
 				const ret = {
 					room: room,
 					kickedUser: kickedUser,
 					byOp: byop
-				}
+				};
 				observer.next(ret);
 			});
 		});
@@ -217,8 +217,8 @@ export class ChatService {
 		return obs;
 	}
 
-	getCurrentUser() : string {
+	getCurrentUser(): string {
 		return this.currentUser;
 	}
-	
+
 }
