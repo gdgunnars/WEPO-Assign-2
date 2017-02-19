@@ -3,3 +3,16 @@
 </p>
 
 <div>Currently on  {{roomId}}</div>
+
+
+<input [(ngModel)]="newMessage" />
+<button (click)="onSendMessage()">Send</button>
+
+<div *ngFor="let msg of messageHistory">
+    <h5> <strong>{{msg.nick}}</strong> >> {{msg.message}} </h5>
+</div>
+
+
+<li *ngFor="let room of rooms">
+    <a [routerLink]="['/rooms', room]">{{room}}</a>
+</li>

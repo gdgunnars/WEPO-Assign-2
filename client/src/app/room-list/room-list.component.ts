@@ -26,11 +26,11 @@ export class RoomListComponent implements OnInit {
 			// TODO: Some error message
 			return;
 		}
+        var name = this.newRoomName;
 		this.chatService.addRoom(this.newRoomName).subscribe(succeded => {
 			if (succeded === true) {
-				this.router.navigate(["rooms", this.newRoomName]);
+				this.router.navigate(["rooms", name]);
 			}
 		});
-		this.newRoomName = "";
 	}
 }
