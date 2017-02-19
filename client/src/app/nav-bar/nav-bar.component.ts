@@ -31,6 +31,14 @@ export class NavBarComponent implements OnInit {
 			this.channels = lst;
 
 		});
+		this.chatService.getKickedUsers().subscribe(info => {
+			if (info['kickedUser'] === this.chatService.getCurrentUser()) {
+				if (this.channels.some(x => x === info['room'])) {
+					const index = this.channels.indexOf(info['room']);
+					this.channels.splice(index, 1);
+				}
+			}
+		});
 	}
 
 	onActive(id: string) {

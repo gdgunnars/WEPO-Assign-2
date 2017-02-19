@@ -150,6 +150,20 @@ export class ChatService {
 		return obs;
 	}
 
+	getKickedUsers(): Observable<Object> {
+		const obs = new Observable(observer => {
+			this.socket.on('kicked', (room, kickedUser, byop) => {
+				const ret = {
+					room: room,
+					kickedUser: kickedUser,
+					byOp: byop
+				};
+				observer.next(ret);
+			});
+		});
+		return obs;
+	}
+
 	setTopic(room: string, topic: string): Observable<boolean> {
 		const obs = new Observable(observer => {
 			const param = {
@@ -201,4 +215,9 @@ export class ChatService {
 		});
 		return obs;
 	}
+
+	getCurrentUser(): string {
+		return this.currentUser;
+	}
+
 }
