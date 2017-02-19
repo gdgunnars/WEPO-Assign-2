@@ -11,7 +11,9 @@ import { ChatService } from '../chat.service';
 
 
 export class RoomComponent implements OnInit, AfterViewChecked {
-	@ViewChild('scrollMe') private myScrollContainer: ElementRef;
+	@ViewChild('scrollChat') private myChatScrollContainer: ElementRef;
+	@ViewChild('scrollUsers') private myUserScrollContainer: ElementRef;
+	@ViewChild('scrollOps') private myOpsScrollContainer: ElementRef;
 
 	users: string[];
 	ops: string[];
@@ -25,7 +27,6 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 		private route: ActivatedRoute) { }
 
 	ngOnInit() {
-		this.scrollToBottom();
 		this.roomId = this.route.snapshot.params['id'];
 		this.chatService.connectToRoom(this.roomId);
 		this.chatService.getMessage().subscribe(messages => {
@@ -33,7 +34,6 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 				this.messageHistory = messages["msg"];
 			}
 		});
-
 		this.chatService.getUsers().subscribe( obj => {
 			if(obj["roomId"] === this.roomId){
 				const usrArr: string[] = [];
@@ -55,9 +55,12 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 	}
 
 	onSendMessage() {
-		this.chatService.sendMsg(this.roomId, this.newMessage);
-		this.newMessage = "";
-		this.scrollToBottom();
+
+		if (this.newMessage !== '') {
+			this.chatService.sendMsg(this.roomId, this.newMessage);
+			this.newMessage = "";
+			this.scrollToBottom();
+		}
 	}
 
 	ngAfterViewChecked() {
@@ -66,7 +69,9 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 
 	scrollToBottom(): void {
 		try {
-			this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+			this.myChatScrollContainer.nativeElement.scrollTop = this.myChatScrollContainer.nativeElement.scrollHeight;
+			this.myUserScrollContainer.nativeElement.scrollTop = this.myUserScrollContainer.nativeElement.scrollHeight;
+			this.myOpsScrollContainer.nativeElement.scrollTop = this.myOpsScrollContainer.nativeElement.scrollHeight;
 		} catch(err) { }
 	}
 
