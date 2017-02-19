@@ -51,12 +51,24 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 				}
 			}
 		});
+		this.chatService.getTopic().subscribe( obj => {
+			if(obj['roomName'] === this.roomId){
+				this.roomTopic = obj['topic'];
+			}
+		});
 		this.scrollToBottom();
 	}
 
 	onSendMessage() {
 
 		if (this.newMessage !== '') {
+			if(this.newMessage.substring(0,6) === "!topic"){
+				this.chatService.setTopic(this.roomId, this.newMessage).subscribe(succeded => {
+					if(succeded === false) {
+						console.log("You don't have any ops bro!!");
+					}
+				});
+			}
 			this.chatService.sendMsg(this.roomId, this.newMessage);
 			this.newMessage = "";
 			this.scrollToBottom();
