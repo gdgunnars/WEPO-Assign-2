@@ -1,6 +1,6 @@
-var express = require('express'), 
-app = express(), 
-http = require('http'), 
+var express = require('express'),
+app = express(),
+http = require('http'),
 server = http.createServer(app),
 io = require('socket.io').listen(server);
 
@@ -22,7 +22,8 @@ io.sockets.on('connection', function (socket) {
 	socket.on('adduser', function(username, fn){
 
 		//Check if username is avaliable.
-		if (users[username] === undefined && username.toLowerCase != "server" && username.length < 21) {
+		console.log(username);
+		if (users[username] === undefined && username.toLowerCase !== "server" && username.length < 21) {
 			socket.username = username;
 
 			//Store user object in global user roster.
@@ -66,6 +67,7 @@ io.sockets.on('connection', function (socket) {
 			// Update topic
 			socket.emit('updatetopic', room, rooms[room].topic, socket.username);
 			io.sockets.emit('servermessage', "join", room, socket.username);
+			socket.emit('channellist', users[socket.username].channels);
 		}
 		else {
 
@@ -102,6 +104,7 @@ io.sockets.on('connection', function (socket) {
 				socket.emit('updatechat', room, rooms[room].messageHistory);
 				socket.emit('updatetopic', room, rooms[room].topic, socket.username);
 				io.sockets.emit('servermessage', "join", room, socket.username);
+				socket.emit('channellist', users[socket.username].channels);
 			}
 			if (fn) {
 				fn(false, reason);
@@ -111,7 +114,7 @@ io.sockets.on('connection', function (socket) {
 
 	// when the client emits 'sendchat', this listens and executes
 	socket.on('sendmsg', function (data) {
-		
+
 		var userAllowed = false;
 
 		//Check if user is allowed to send message.
@@ -278,6 +281,19 @@ io.sockets.on('connection', function (socket) {
 		}
 		socket.emit('userlist', userlist);
 	});
+
+	// Returns a list of all channels user is connected to
+	/*socket.on('getChannels', function (username, fn) {
+		var channelList = [];
+
+		for(var user in users) {
+			if (user === username) {
+				channelList = users[user].channels;
+				break;
+			}
+		}
+		socket.emit('channellist', channelList);
+	})*/
 
 	//Sets topic for room.
 	socket.on('settopic', function (topicObj, fn) {
