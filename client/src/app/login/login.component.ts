@@ -35,13 +35,4 @@ export class LoginComponent implements OnInit {
 			}
 		});
 	}
-	/*
-	this.socket.emit('adduser', this.userName, succeeded => {
-	if (!succeeded) {
-	this.loginFailed = true;
-	}
-	else {
-	console.log('Login succeeded');
-	}
-	});*/
 }

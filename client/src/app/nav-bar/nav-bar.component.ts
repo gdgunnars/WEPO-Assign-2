@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ChatService } from '../chat.service';
 import { GlobalEventManagerService } from './../global-event-manager.service';
 
 @Component({
@@ -10,8 +11,10 @@ export class NavBarComponent implements OnInit {
 	showNavBar = false;
 	roomListButtonActive = true;
 	lobbyButtonActive = false;
+	channels: string[];
 
-	constructor(private globalEventManagerService: GlobalEventManagerService) {
+	constructor(private chatService: ChatService,
+		private globalEventManagerService: GlobalEventManagerService) {
 		this.globalEventManagerService.showNavBarEmitter.subscribe((mode) => {
 			// mode will be null the first time it is created, so you need to igonore it when
 			if (mode !== null) {
@@ -21,6 +24,9 @@ export class NavBarComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		this.chatService.getChannelsForCurrentUser().subscribe(lst => {
+			this.channels = lst;
+		});
 	}
 
 	setActive(buttonName: string) {

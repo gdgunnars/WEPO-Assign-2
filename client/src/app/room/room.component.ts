@@ -2,13 +2,11 @@ import { Component, OnInit, AfterViewChecked, ViewChild, ElementRef } from '@ang
 import { Router, ActivatedRoute } from '@angular/router';
 import { ChatService } from '../chat.service';
 
-
 @Component({
 	selector: 'app-room',
 	templateUrl: './room.component.html',
 	styleUrls: ['./room.component.css'],
 })
-
 
 export class RoomComponent implements OnInit, AfterViewChecked {
 	@ViewChild('scrollChat') private myChatScrollContainer: ElementRef;
@@ -42,7 +40,6 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 					if (op !== undefined) {
 						opArr.push(op);
 					}
-
 				}
 				for (const user in obj['users']) {
 					if (user !== undefined) {
@@ -64,7 +61,6 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 	}
 
 	onSendMessage() {
-
 		if (this.newMessage !== '') {
 			if(this.newMessage.substring(0,6) === "!topic"){
 				this.chatService.setTopic(this.roomId, this.newMessage.substring(6)).subscribe(succeded => {

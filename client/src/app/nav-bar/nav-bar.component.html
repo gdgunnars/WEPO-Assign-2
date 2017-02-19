@@ -11,6 +11,9 @@
         <li [class.active]="lobbyButtonActive">
           <a [routerLink]="['/rooms/lobby']" (click)='setActive("lobby")'>Lobby</a>
         </li>
+        <li *ngFor="let channel of channels">
+          <a [routerLink]="['/rooms', channel]">{{channel}}</a>
+        </li>
       </ul>
     </div>
   </nav>

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class ChatService {
 	socket: any;
+	currentUser: string;
 
 	constructor() {
 		this.socket = io('http://localhost:8080/');
@@ -17,6 +18,7 @@ export class ChatService {
 		const observable = new Observable(observer => {
 			this.socket.emit('adduser', userName, succeeded => {
 				console.log('Reply received');
+				this.currentUser = userName;
 				observer.next(succeeded);
 			});
 		});
@@ -46,7 +48,7 @@ export class ChatService {
 			this.socket.emit('users');
 			this.socket.on('userlist', (lst) => {
 				const strArr: string[] = [];
-				console.log(lst);
+				// console.log(lst);
 				for (const x in lst) {
 					if (lst.hasOwnProperty(x)) {
 						strArr.push(lst[x]);
@@ -67,6 +69,7 @@ export class ChatService {
 			this.socket.emit('joinroom', param, function(a: boolean, b) {
 				observer.next(a);
 			});
+			this.getChannelsForCurrentUser();
 		});
 		return observable;
 	}
@@ -78,6 +81,7 @@ export class ChatService {
       this.socket.emit("joinroom", param, function(a: boolean, b){
           console.log("connectToRoom returns: " + a);
       });
+	  this.getChannelsForCurrentUser();
 
 	}
 
@@ -144,6 +148,20 @@ export class ChatService {
       return obs;
   }
 
+  getChannelsForCurrentUser(): Observable<string[]> {
+  	const obs = new Observable(observer => {
+		this.socket.on('channellist', (lst) => {
+			const strArr: string[] = [];
+			for (const x in lst) {
+				if (lst.hasOwnProperty(x)) {
+					strArr.push(lst[x]);
+				}
+			}
+			observer.next(strArr);
+		})
+  	});
+  	return obs;
+  }
 
 
 
