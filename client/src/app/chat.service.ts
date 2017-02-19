@@ -46,8 +46,8 @@ export class ChatService {
           this.socket.emit('users');
           this.socket.on('userlist', (lst) => {
               const strArr: string[] = [];
+              console.log(lst);
               for (const x in lst) {
-                  console.log(lst);
                   if (lst.hasOwnProperty(x)) {
                       strArr.push(lst[x]);
                   }
@@ -90,8 +90,8 @@ export class ChatService {
       this.socket.emit("sendmsg", param);
   }
 
-  getMessage() : Observable<Object>{
-      const obs = new Observable(observer =>{
+  getMessage() : Observable<Object> {
+      const obs = new Observable(observer => {
           this.socket.on("updatechat", (roomName, historyList) => {
               observer.next({
                   roomName: roomName,
@@ -103,5 +103,18 @@ export class ChatService {
       return obs;
   }
 
+  getUsers() : Observable<Object> {
+      const obs = new Observable(observer => {
+          this.socket.on("updateusers", (roomName, roomUsers, roomOps) => {
+              let ret = {
+                  roomId: roomName,
+                  users: roomUsers,
+                  ops: roomOps
+              }
+              observer.next(ret);
+          });
+      });
+      return obs;
+  }
 
 }

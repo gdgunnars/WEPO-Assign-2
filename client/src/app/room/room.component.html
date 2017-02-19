@@ -1,10 +1,18 @@
 <div class="col-sm-4 col-md-3">
   <div class="panel panel-default">
+      <div class="panel-heading">Ops</div>
+      <div class="panel-body">
+        <div #scrollMe class="pre-scrollable">
+            <div class="row message-bubble" *ngFor="let op of ops">
+                <span>{{op}}</span>
+            </div>
+        </div>
+      </div>
     <div class="panel-heading">Users</div>
     <div class="panel-body">
       <div #scrollMe class="pre-scrollable">
         <div class="row message-bubble" *ngFor="let user of users">
-          <span>{{user}}</span>
+            <span>{{user}}</span>
         </div>
       </div>
     </div>
