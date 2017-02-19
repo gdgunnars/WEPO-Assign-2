@@ -8,6 +8,6 @@ gulp.task("tslint", () =>
             formatter: "prose"
         }))
         .pipe(tslint.report({
-            emitError: false
+            summarizeFailureOutput: true
         }))
 );

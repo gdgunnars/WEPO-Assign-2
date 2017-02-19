@@ -1,18 +1,18 @@
 <div class="col-sm-4 col-md-3">
   <div class="panel panel-default">
-      <div class="panel-heading">Ops</div>
-      <div class="panel-body">
-        <div #scrollOps class="pre-scrollable">
-            <div class="row message-bubble" *ngFor="let op of ops">
-                <span>{{op}}</span>
-            </div>
+    <div class="panel-heading">Ops</div>
+    <div class="panel-body">
+      <div #scrollOps class="pre-scrollable">
+        <div class="row message-bubble" *ngFor="let op of ops">
+          <span>{{op}}</span>
         </div>
       </div>
+    </div>
     <div class="panel-heading">Users</div>
     <div class="panel-body">
       <div #scrollUsers class="pre-scrollable">
         <div class="row message-bubble" *ngFor="let user of users">
-            <span>{{user}}</span>
+          <span>{{user}}</span>
         </div>
       </div>
     </div>
@@ -22,7 +22,7 @@
   <div class="panel panel-default">
     <div class="panel-heading">{{roomId}}</div>
     <div class="panel-body">
-      <div #scrollChat class="pre-scrollable" >
+      <div #scrollChat class="pre-scrollable">
         <div class="row message-bubble" *ngFor="let msg of messageHistory">
           <p class="text-muted">{{msg.time}} > {{msg.nick}}</p>
           <span>{{msg.message}}</span>

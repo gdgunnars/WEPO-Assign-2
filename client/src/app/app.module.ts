@@ -13,33 +13,34 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { GlobalEventManagerService } from './global-event-manager.service';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        LoginComponent,
-        RoomListComponent,
-        RoomComponent,
-        NavBarComponent
-    ],
-    imports: [
-        BrowserModule,
-        FormsModule,
-        HttpModule,
-        RouterModule.forRoot([{
-            path: '',
-            redirectTo: 'login',
-            pathMatch: 'full'
-        }, {
-            path: 'login',
-            component: LoginComponent
-        }, {
-            path: 'rooms',
-            component: RoomListComponent
-        }, {
-            path: 'rooms/:id',
-            component: RoomComponent
-        }])
-    ],
-    providers: [ChatService, GlobalEventManagerService],
-    bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		LoginComponent,
+		RoomListComponent,
+		RoomComponent,
+		NavBarComponent
+	],
+	imports: [
+		BrowserModule,
+		FormsModule,
+		HttpModule,
+		RouterModule.forRoot([{
+			path: '',
+			redirectTo: 'login',
+			pathMatch: 'full'
+		}, {
+			path: 'login',
+			component: LoginComponent
+		}, {
+			path: 'rooms',
+			component: RoomListComponent
+		}, {
+			path: 'rooms/:id',
+			component: RoomComponent
+		}])
+	],
+	providers: [ChatService, GlobalEventManagerService],
+	bootstrap: [AppComponent]
 })
+
 export class AppModule { }
