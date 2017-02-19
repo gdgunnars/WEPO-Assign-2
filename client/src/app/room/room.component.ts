@@ -1,14 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, ViewChild, ElementRef } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ChatService } from '../chat.service';
-import { Router, ActivatedRoute } from "@angular/router";
+
 
 @Component({
 	selector: 'app-room',
 	templateUrl: './room.component.html',
-	styleUrls: ['./room.component.css']
+	styleUrls: ['./room.component.css'],
 })
-export class RoomComponent implements OnInit {
 
+
+export class RoomComponent implements OnInit, AfterViewChecked {
+	@ViewChild('scrollMe') private myScrollContainer: ElementRef;
+
+	users: string[];
 	roomId: string;
 	roomTopic: string;
 	newMessage: string;
@@ -26,6 +31,11 @@ export class RoomComponent implements OnInit {
 				this.messageHistory = messages["msg"];
 			}
 		});
+
+		this.scrollToBottom();
+		this.chatService.getUserList().subscribe(lst => {
+            this.users = lst;
+        });
 	}
 
 	onSendMessage() {
@@ -33,6 +43,14 @@ export class RoomComponent implements OnInit {
 		this.newMessage = "";
 	}
 
+	ngAfterViewChecked() {
+		this.scrollToBottom();
+	}
 
+	scrollToBottom(): void {
+		try {
+			this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+		} catch(err) { }
+	}
 
 }

@@ -1,18 +1,33 @@
-<p>
-  room works!
-</p>
-
-<div>Currently on  {{roomId}}</div>
-
-
-<input [(ngModel)]="newMessage" />
-<button (click)="onSendMessage()">Send</button>
-
-<div *ngFor="let msg of messageHistory">
-    <h5> <strong>{{msg.nick}}</strong> >> {{msg.message}} </h5>
+<div class="col-md-3">
+  <div class="panel panel-default">
+    <div class="panel-heading">Users</div>
+    <div class="panel-body">
+      <div #scrollMe class="pre-scrollable">
+        <div class="row message-bubble" *ngFor="let user of users">
+          <span>{{user}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-
-
-<li *ngFor="let room of rooms">
-    <a [routerLink]="['/rooms', room]">{{room}}</a>
-</li>
+<div class="col-md-9">
+  <div class="panel panel-default">
+    <div class="panel-heading">{{roomId}}</div>
+    <div class="panel-body">
+      <div #scrollMe class="pre-scrollable" >
+        <div class="row message-bubble" *ngFor="let msg of messageHistory">
+          <p class="text-muted">{{msg.time}} > {{msg.nick}}</p>
+          <span>{{msg.message}}</span>
+        </div>
+      </div>
+      <div class="panel-footer">
+        <div class="input-group">
+          <input type="text" class="form-control" [(ngModel)]="newMessage">
+          <span class="input-group-btn">
+            <button class="btn btn-default" (click)="onSendMessage()" type="button">Send</button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
