@@ -14,6 +14,7 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 	@ViewChild('scrollMe') private myScrollContainer: ElementRef;
 
 	users: string[];
+	ops: string[];
 	roomId: string;
 	roomTopic: string;
 	newMessage: string;
@@ -31,11 +32,27 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 				this.messageHistory = messages["msg"];
 			}
 		});
-
+		this.chatService.getUsers().subscribe( obj => {
+			if(obj["roomId"] === this.roomId){
+				const usrArr: string[] = [];
+				const opArr: string[] = [];
+				for(const op in obj["ops"]) {
+					opArr.push(op);
+				}
+				for(const user in obj["users"]) {
+					if(!opArr.some(x => x == user)) {
+						console.log("Adding user, co's aint op");
+						usrArr.push(user);
+					}
+					this.users = usrArr;
+					this.ops = opArr;
+				}
+			}
+		});
 		this.scrollToBottom();
-		this.chatService.getUserList().subscribe(lst => {
+		/*this.chatService.getUserList().subscribe(lst => {
             this.users = lst;
-        });
+        });*/
 	}
 
 	onSendMessage() {
