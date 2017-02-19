@@ -27,7 +27,6 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 		private route: ActivatedRoute) { }
 
 	ngOnInit() {
-		this.scrollToBottom();
 		this.roomId = this.route.snapshot.params['id'];
 		this.chatService.connectToRoom(this.roomId);
 		this.chatService.getMessage().subscribe(messages => {
@@ -35,8 +34,7 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 				this.messageHistory = messages['msg'];
 			}
 		});
-
-		this.chatService.getUsers().subscribe(obj => {
+		this.chatService.getUsers().subscribe( obj => {
 			if (obj['roomId'] === this.roomId) {
 				const usrArr: string[] = [];
 				const opArr: string[] = [];
@@ -61,6 +59,7 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 	}
 
 	onSendMessage() {
+
 		if (this.newMessage !== '') {
 			this.chatService.sendMsg(this.roomId, this.newMessage);
 			this.newMessage = '';
