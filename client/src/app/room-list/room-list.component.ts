@@ -31,6 +31,5 @@ export class RoomListComponent implements OnInit {
                 this.router.navigate(['rooms', this.newRoomName]);
             }
         });
-        this.newRoomName = '';
     }
 }

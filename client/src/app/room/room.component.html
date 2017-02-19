@@ -14,17 +14,17 @@
   <div class="panel panel-default">
     <div class="panel-heading">{{roomId}}</div>
     <div class="panel-body">
-      <div #scrollMe class="pre-scrollable">
-        <div class="row message-bubble">
-          <p class="text-muted">adfasdfasdf</p>
-          <span>asdfasdfasdf</span>
+      <div #scrollMe class="pre-scrollable" >
+        <div class="row message-bubble" *ngFor="let msg of messageHistory">
+          <p class="text-muted">{{msg.time}} > {{msg.nick}}</p>
+          <span>{{msg.message}}</span>
         </div>
       </div>
       <div class="panel-footer">
         <div class="input-group">
-          <input type="text" class="form-control">
+          <input type="text" class="form-control" [(ngModel)]="newMessage">
           <span class="input-group-btn">
-            <button class="btn btn-default" type="button">Send</button>
+            <button class="btn btn-default" (click)="onSendMessage()" type="button">Send</button>
           </span>
         </div>
       </div>

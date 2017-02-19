@@ -63,18 +63,45 @@ export class ChatService {
       const observable = new Observable(observer => {
           const param = {
               room : roomName
-
-          };
-          this.socket.emit('joinroom', param, function(a: boolean, b){
-              if (a === true) {
-                   observer.next(true);
-              } else {
-                  console.log('Error when creating channel:' + b);
-                  observer.next(false);
-              }
+          }
+          this.socket.emit("joinroom", param, function(a: boolean, b){
+              observer.next(a);
           });
       });
       return observable; ;
   }
+
+  connectToRoom(roomId: string) {
+      var param = {
+          room : roomId
+      }
+      this.socket.emit("joinroom", param, function(a: boolean, b){
+          console.log("getRoom returns: " + a);
+      });
+
+  }
+
+  sendMsg(roomId: string, msg: string) {
+      console.log("sending msg to server");
+      var param = {
+          roomName : roomId,
+          msg : msg
+      }
+      this.socket.emit("sendmsg", param);
+  }
+
+  getMessage() : Observable<Object>{
+      const obs = new Observable(observer =>{
+          this.socket.on("updatechat", (roomName, historyList) => {
+              observer.next({
+                  roomName: roomName,
+                  msg: historyList
+              });
+          });
+      });
+
+      return obs;
+  }
+
 
 }
