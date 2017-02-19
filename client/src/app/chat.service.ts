@@ -6,22 +6,12 @@ import { Observable } from 'rxjs/Observable';
 export class ChatService {
 	socket: any;
 
-<<<<<<< HEAD
-  constructor() {
-      //this.socket = io ('http://localhost:8080/');
-      this.socket = io ('http://192.168.0.137:8080/');
-      this.socket.on('connect', function() {
-            console.log('connect');
-      });
-  }
-=======
 	constructor() {
 		this.socket = io('http://localhost:8080/');
 		this.socket.on('connect', function() {
 			console.log('connect');
 		});
 	}
->>>>>>> 1832125f619b5103258e73ef20ce259356792699
 
 	login(userName: string): Observable<boolean> {
 		const observable = new Observable(observer => {
