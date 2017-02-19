@@ -14,7 +14,7 @@
   <div class="panel panel-default">
     <div class="panel-heading">{{roomId}}</div>
     <div class="panel-body">
-      <div #scrollMe class="pre-scrollable" >
+      <div #scrollMe style="overflow-y: scroll; overflow-x: hidden; height: 70vh;" >
         <div class="row message-bubble" *ngFor="let msg of messageHistory">
           <p class="text-muted">{{msg.time}} > {{msg.nick}}</p>
           <span>{{msg.message}}</span>
@@ -22,7 +22,7 @@
       </div>
       <div class="panel-footer">
         <div class="input-group">
-          <input type="text" class="form-control" [(ngModel)]="newMessage">
+          <input type="text" class="form-control" [(ngModel)]="newMessage" (keyup.enter)="onSendMessage()">
           <span class="input-group-btn">
             <button class="btn btn-default" (click)="onSendMessage()" type="button">Send</button>
           </span>
