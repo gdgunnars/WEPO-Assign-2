@@ -13,6 +13,7 @@ export class NavBarComponent implements OnInit {
 	channels: string[] = [];
 	roomId: string;
 	public isCollapsed = true;
+	PMs: {} = {};
 
 	constructor(private chatService: ChatService,
 		private globalEventManagerService: GlobalEventManagerService,
@@ -57,6 +58,9 @@ export class NavBarComponent implements OnInit {
 					this.channels.splice(index, 1);
 				}
 			}
+		});
+		this.chatService.getPrivateMsg().subscribe( msg => {
+			//console.log(msg);
 		});
 	}
 
