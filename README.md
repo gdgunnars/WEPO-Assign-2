@@ -45,6 +45,8 @@ with an exclamation mark. Following is a full list of available commands:
 All of these commands have buttons in the UI that you can use as well.
 To send a private message, click the messaging icon next to a users name.
 
+Run gulp tslint to run tslint on the code. 
+
 Bonus features
 -------
 
