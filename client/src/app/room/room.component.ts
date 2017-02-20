@@ -20,7 +20,7 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 	newMessage: string;
 	messageHistory: {}[];
 	roomNotifications: string[] = [];
-	currentNotification: string = "";
+	currentNotification: string;
 
 	constructor(private router: Router,
 		private chatService: ChatService,
@@ -64,16 +64,16 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 			}
 		});
 		this.chatService.getServerMessage().subscribe(obj => {
-			if(obj['type'] === "quit"){
-				for(const chan in obj['room']){
-					if(chan === this.roomId){
-						const notification = "User " + obj['user'] + " quit the server!";
+			if (obj['type'] === 'quit') {
+				for (const chan in obj['room']) {
+					if (chan === this.roomId) {
+						const notification = 'User ' + obj['user'] +  'quit the server!';
 						this.addNotification(notification);
 					}
 				}
 			} else {
-				if(obj['room'] === this.roomId) {
-					const notification = "User " + obj['user'] + " " + obj['type'] + "ed room " + obj['room'];
+				if (obj['room'] === this.roomId) {
+					const notification = 'User ' + obj['user'] + ' ' + obj['type'] + 'ed room ' + obj['room'];
 					this.addNotification(notification);
 				}
 			}

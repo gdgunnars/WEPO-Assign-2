@@ -10,7 +10,7 @@ export class ChatService {
 
 	constructor() {
 		this.socket = io('http://localhost:8080/');
-		//this.socket = io ('http://192.168.0.137:8080/');
+		// this.socket = io ('http://192.168.0.137:8080/');
 		this.socket.on('connect', function() {
 			console.log('connect');
 		});
@@ -254,7 +254,7 @@ export class ChatService {
 		return this.currentUser;
 	}
 
-	getServerMessage(): Observable<string>{
+	getServerMessage(): Observable<string> {
 		const obs = new Observable(observer => {
 			this.socket.on('servermessage', (type, room, user) => {
 				const ret = {
