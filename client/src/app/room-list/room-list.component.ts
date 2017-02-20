@@ -27,10 +27,14 @@ export class RoomListComponent implements OnInit {
 			// TODO: Some error message
 			return;
 		}
-		this.chatService.addRoom(this.newRoomName).subscribe(succeded => {
+		if (this.password === undefined || this.password === '') {
+			this.password = undefined;
+		}
+		this.chatService.addRoom(this.newRoomName, this.password).subscribe(succeded => {
 			if (succeded === true) {
 				this.router.navigate(['rooms', this.newRoomName]);
 			}
 		});
+
 	}
 }
