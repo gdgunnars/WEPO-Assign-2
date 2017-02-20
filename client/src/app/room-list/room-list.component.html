@@ -2,7 +2,7 @@
   <div class="panel panel-default">
     <div class="panel-heading">Rooms</div>
     <div class="panel-body">
-      <div #scrollMe class="pre-scrollable">
+      <div #scrollMe class="scrollabe-roomlist">
         <div class="row message-bubble" *ngFor="let room of rooms">
           <span><a [routerLink]="['/rooms', room]">{{room}}</a></span>
         </div>

@@ -12,6 +12,7 @@ export class NavBarComponent implements OnInit {
 	showNavBar = false;
 	channels: string[] = [];
 	roomId: string;
+	public isCollapsed = true;
 
 	constructor(private chatService: ChatService,
 		private globalEventManagerService: GlobalEventManagerService,

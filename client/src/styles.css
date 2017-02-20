@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css");
+/*@import url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css");*/
 body, html {
   background-color: #e7e7e7;
   height: 100%;
@@ -28,8 +28,20 @@ body, html {
   color: white !important;
 }
 
-.pre-scrollable {
-  max-height: 70vh;
+.scrollabe-ops {
+  height: 20vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.scrollabe-users {
+  height: 52vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.scrollabe-roomlist {
+  height: 70vh;
   overflow-y: scroll;
   overflow-x: hidden;
 }
@@ -79,4 +91,8 @@ body, html {
 
 .room-notification {
     color: grey;
+}
+
+.navbar-toggle {
+  background-color: transparent !important;
 }
