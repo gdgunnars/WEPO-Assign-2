@@ -50,6 +50,9 @@
   <div class="panel panel-default">
     <div class="panel-heading">
         {{roomId}} - <strong class="text-center"> {{roomTopic}} </strong>
+        <button type="button" class="btn btn-info btn-xs" (click)="commands.show()">Chat commands
+              <span class="glyphicon glyphicon-info-sign"></span>
+          </button>
         <a (click)="onPartRoom(channel)" class="pull-right"><i class="glyphicon glyphicon-remove"></i>
         </a>
     </div>
@@ -90,6 +93,28 @@
       </div>
         <code>
             <div class="modal-body" *ngFor="let msg of roomNotifications"> {{msg}} </div>
+        </code>
+    </div>
+  </div>
+</div>
+
+<div bsModal #commands="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Chat commands</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="commands.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <code>
+            <div class="modal-body">
+                <kbd>!op username</kbd>        gives the specified user op privileges,<br />
+                <kbd>!deop username</kbd>      removes op privileges from the specified user,<br />
+                <kbd>!kick username</kbd>      kicks the specifid user from the channel,<br />
+                <kbd>!ban username</kbd>       bans the specifed user from the channel,<br />
+                <kbd>!part</kbd>               leaves the current channel.<br />
+            </div>
         </code>
     </div>
   </div>
