@@ -9,8 +9,8 @@ export class ChatService {
 
 
 	constructor() {
-		this.socket = io('http://localhost:8080/');
-		// this.socket = io ('http://192.168.0.137:8080/');
+		//this.socket = io('http://localhost:8080/');
+		 this.socket = io ('http://192.168.0.137:8080/');
 		this.socket.on('connect', function() {
 			console.log('connect');
 		});
@@ -75,14 +75,21 @@ export class ChatService {
 		return observable;
 	}
 
-	connectToRoom(roomId: string) {
-		const param = {
-			room: roomId
-		};
-		this.socket.emit('joinroom', param, function(a: boolean, b) {
-			console.log('connectToRoom returns: ' + a);
+	connectToRoom(roomId: string): Observable<Object> {
+		const obs = new Observable(observer =>{
+			const param = {
+				room: roomId
+			};
+			this.socket.emit('joinroom', param, function(a: boolean, b) {
+				const ret = {
+					success: a,
+					reason: b
+				};
+				observer.next(ret);
+				console.log('connectToRoom returns: ' + a, " if reason: " + b);
+			});
 		});
-
+		return obs;
 	}
 
 	sendMsg(roomId: string, msg: string) {
@@ -164,6 +171,20 @@ export class ChatService {
 		return obs;
 	}
 
+	getBannedUsers(): Observable<Object> {
+		const obs = new Observable(observer => {
+			this.socket.on('banned', (room, bannedUser, byop) => {
+				const ret = {
+					room: room,
+					bannedUser: bannedUser,
+					byOp: byop
+				};
+				observer.next(ret);
+			});
+		});
+		return obs;
+	}
+
 	setTopic(room: string, topic: string): Observable<boolean> {
 		const obs = new Observable(observer => {
 			const param = {
@@ -210,6 +231,19 @@ export class ChatService {
 				user: user
 			};
 			this.socket.emit('kick', param, function(a: boolean) {
+				observer.next(a);
+			});
+		});
+		return obs;
+	}
+
+	banUser(room: string, user: string): Observable<boolean> {
+		const obs = new Observable(observer => {
+			const param = {
+				room: room,
+				user: user
+			};
+			this.socket.emit('ban', param, function(a: boolean) {
 				observer.next(a);
 			});
 		});
