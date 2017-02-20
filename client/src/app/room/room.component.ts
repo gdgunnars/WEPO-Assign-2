@@ -109,6 +109,12 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 		this.roomNotifications.push(notification);
 	}
 
+	onPartRoom(){
+		this.chatService.partRoom(this.roomId);
+	}
+
+
+
 
 	// These are all the commands that an OP can send in the chat to control the room
 	commandParsing(msg: string) {
@@ -151,7 +157,7 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 					}
 				});
 			}
-		} else if (this.newMessage.substring(0,5) === '!part') {
+		} else if (this.newMessage.substring(0, 5) === '!part') {
 			this.chatService.partRoom(this.roomId);
 			this.router.navigateByUrl('/rooms');
 		}

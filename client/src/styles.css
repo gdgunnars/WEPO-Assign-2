@@ -96,3 +96,7 @@ body, html {
 .navbar-toggle {
   background-color: transparent !important;
 }
+
+.panel-heading a {
+    color: white;
+}
