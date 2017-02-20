@@ -13,8 +13,7 @@ export class ChatService {
 
 
 	constructor() {
-		//this.socket = io('http://localhost:8080/');
-		 this.socket = io ('http://192.168.0.137:8080/');
+		this.socket = io('http://localhost:8080/');
 		this.socket.on('connect', function() {
 			console.log('connect');
 		});
@@ -370,9 +369,9 @@ export class ChatService {
 			const param = {
 				nick: user,
 				message: msg
-			}
+			};
 			if (this.PMs[user] === undefined){
-				this.PMs[user] = { username: user, msg: []}
+				this.PMs[user] = { username: user, msg: []};
 			}
 			this.PMs[user].msg.push({nick: this.currentUser, message: msg});
 			this.socket.emit('privatemsg', param, function(a: boolean) {
@@ -385,12 +384,14 @@ export class ChatService {
 	getPmUsers(): string[] {
 		const usrArr = [];
 		for (const usr in this.PMs) {
-			usrArr.push(usr);
+			if (this.PMs.hasOwnProperty(usr)){
+				usrArr.push(usr);
+			}
 		}
 		return usrArr;
 	}
 
-	getPmessagesFromUser(user: string) : string[] {
+	getPmessagesFromUser(user: string): string[] {
 		if ( this.PMs[user] !== undefined) {
 			return this.PMs[user].msg;
 		}
