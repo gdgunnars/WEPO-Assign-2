@@ -30,13 +30,13 @@ body, html {
 }
 
 .scrollabe-ops {
-  height: 17vh;
+  height: 20vh;
   overflow-y: scroll;
   overflow-x: hidden;
 }
 
 .scrollabe-users {
-  height: 50vh;
+  height: 47vh;
   overflow-y: scroll;
   overflow-x: hidden;
 }
@@ -118,4 +118,14 @@ body, html {
 
 .panel-heading a {
     color: white;
+    cursor: default;
+}
+
+.panel-heading a:hover {
+    color: #474747;
+}
+
+.commands {
+    margin-right: 20px;
+    margin-bottom: 5px;
 }

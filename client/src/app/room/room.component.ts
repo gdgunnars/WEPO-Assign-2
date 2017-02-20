@@ -13,14 +13,15 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 	@ViewChild('scrollUsers') private myUserScrollContainer: ElementRef;
 	@ViewChild('scrollOps') private myOpsScrollContainer: ElementRef;
 
-	users: string[];
-	ops: string[];
+	users: string[] = [];
+	ops: string[] = [];
 	roomId: string;
 	roomTopic: string;
 	newMessage: string;
 	messageHistory: {}[];
 	roomNotifications: string[] = [];
 	currentNotification: string;
+	isOp: boolean = false;
 
 	constructor(private router: Router,
 		private chatService: ChatService,
@@ -42,9 +43,14 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 			if (obj['roomId'] === this.roomId) {
 				const usrArr: string[] = [];
 				const opArr: string[] = [];
+				this.isOp = false;
 				for (const op in obj['ops']) {
 					if (op !== undefined) {
 						opArr.push(op);
+						if (op === this.chatService.getCurrentUser()){
+							console.log("I am setting isOp to true");
+							this.isOp = true;
+						}
 					}
 				}
 				for (const user in obj['users']) {
@@ -78,6 +84,7 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 				}
 			}
 		});
+
 		this.scrollToBottom();
 	}
 
@@ -111,6 +118,39 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 
 	onPartRoom() {
 		this.chatService.partRoom(this.roomId);
+		this.router.navigateByUrl('/rooms');
+	}
+
+	setOp(user: string) {
+		this.chatService.setOp(this.roomId, user).subscribe(succeeded => {
+			if (succeeded === false) {
+				console.log('You dont have any ops bro!!');
+			}
+		});
+	}
+
+	deOp(user: string) {
+		this.chatService.deOp(this.roomId, user).subscribe(succeeded => {
+			if (succeeded === false) {
+				console.log('You dont have any ops bro!!');
+			}
+		});
+	}
+
+	kickUser(user: string) {
+		this.chatService.kickUser(this.roomId, user).subscribe(succeeded => {
+			if (succeeded === false) {
+				console.log('You dont have any ops bro!!');
+			}
+		});
+	}
+
+	banUser(user: string) {
+		this.chatService.banUser(this.roomId, user).subscribe(succeeded => {
+			if (succeeded === false) {
+				console.log('You dont have any ops bro!!');
+			}
+		});
 	}
 
 
@@ -126,40 +166,23 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 			});
 		} else if (this.newMessage.substring(0, 3) === '!op') {
 			if (this.users.some(x => x === this.newMessage.substring(4))) {
-				this.chatService.setOp(this.roomId, this.newMessage.substring(4)).subscribe(succeded => {
-					if (succeded === false) {
-						console.log('You dont have any ops bro!!');
-					}
-				});
+				this.setOp(this.newMessage.substring(4));
 			}
 		} else if (this.newMessage.substring(0, 5) === '!deop') {
 			if (this.ops.some(x => x === this.newMessage.substring(6))) {
-				this.chatService.deOp(this.roomId, this.newMessage.substring(6)).subscribe(succeded => {
-					if (succeded === false) {
-						console.log('You dont have any ops bro!!');
-					}
-				});
+				this.deOp(this.newMessage.substring(6));
 			}
 		} else if (this.newMessage.substring(0, 5) === '!kick') {
 			if (this.ops.some(x => x === this.newMessage.substring(6)) || this.users.some(x => x === this.newMessage.substring(6))) {
-				this.chatService.kickUser(this.roomId, this.newMessage.substring(6)).subscribe(succeded => {
-					if (succeded === false) {
-						console.log('you do not have da ops man!');
-					}
-				});
+				this.kickUser(this.newMessage.substring(6));
 			}
 		} else if (this.newMessage.substring(0, 4) === '!ban') {
 			if (this.ops.some(x => x === this.newMessage.substring(5)) ||
 			this.users.some(x => x === this.newMessage.substring(5))) {
-				this.chatService.banUser(this.roomId, this.newMessage.substring(5)).subscribe(succeded => {
-					if (succeded === false) {
-						console.log('you do not have da ops man!');
-					}
-				});
+				this.banUser(this.newMessage.substring(5));
 			}
 		} else if (this.newMessage.substring(0, 5) === '!part') {
-			this.chatService.partRoom(this.roomId);
-			this.router.navigateByUrl('/rooms');
+			this.onPartRoom();
 		}
 	}
 
