@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import { ModalModule } from 'ng2-bootstrap/modal';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -41,7 +42,8 @@ import { AuthService } from './auth.service';
 			path: 'rooms/:id',
 			component: RoomComponent,
 			canActivate: [AuthGuard]
-		}])
+		}]),
+		ModalModule.forRoot()
 	],
 	providers: [ChatService, GlobalEventManagerService, AuthService, AuthGuard],
 	bootstrap: [AppComponent]
