@@ -198,6 +198,19 @@ export class ChatService {
 		return obs;
 	}
 
+	setPassword(room: string, password: string): Observable<boolean> {
+		const obs = new Observable(observer => {
+			const param = {
+				room: room,
+				password: password
+			};
+			this.socket.emit('setpassword', param, function(a: boolean) {
+				observer.next(a);
+			});
+		});
+		return obs;
+	}
+
 	setOp(room: string, user: string): Observable<boolean> {
 		const obs = new Observable(observer => {
 			const param = {
