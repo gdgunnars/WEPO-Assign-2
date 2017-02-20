@@ -63,3 +63,5 @@ Known Issues
 - TSlint complains about syntax being wrong that is required for ng2-bootstrap
 to work properly, so we did not figure out how to fix these without breaking the
 functionality.
+- When you send a private msg to a user, the sender sees his message twice, while
+the recipient only sees the msg once.
