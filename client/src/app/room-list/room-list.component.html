@@ -2,14 +2,14 @@
   <div class="panel panel-default">
     <div class="panel-heading">Rooms</div>
     <div class="panel-body">
-      <div #scrollMe class="scrollabe-roomlist">
+      <div #scrollMe class="scrollabe-roomlist scrollbar-style">
         <div class="row message-bubble" *ngFor="let room of rooms">
           <span><a [routerLink]="['/rooms', room]">{{room}}</a></span>
         </div>
       </div>
       <div class="panel-footer">
         <div class="input-group">
-          <input type="text" class="form-control" [(ngModel)]="newRoomName" (keyup.enter)="onNewRoom()" />
+          <input type="text" class="form-control" placeholder="room name" [(ngModel)]="newRoomName" (keyup.enter)="onNewRoom()" />
           <span class="input-group-btn">
             <button class="btn btn-default" (click)="onNewRoom()">Add new room</button>
           </span>

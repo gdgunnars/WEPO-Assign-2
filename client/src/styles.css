@@ -26,28 +26,29 @@ body, html {
 .panel-heading {
   background-color: #3d6da7 !important;
   color: white !important;
+  border-bottom: 0;
 }
 
 .scrollabe-ops {
-  height: 20vh;
+  height: 17vh;
   overflow-y: scroll;
   overflow-x: hidden;
 }
 
 .scrollabe-users {
-  height: 52vh;
+  height: 50vh;
   overflow-y: scroll;
   overflow-x: hidden;
 }
 
 .scrollabe-roomlist {
-  height: 70vh;
+  height: 65vh;
   overflow-y: scroll;
   overflow-x: hidden;
 }
 
 .scrollabe-chat {
-  height: 70vh;
+  height: 65vh;
   overflow-y: scroll;
   overflow-x: hidden;
 }
@@ -95,4 +96,26 @@ body, html {
 
 .navbar-toggle {
   background-color: transparent !important;
+}
+
+.main-content-container {
+    margin-top: 70px;
+}
+
+.scrollbar-style::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+    height: 100%;
+}
+
+.scrollbar-style::-webkit-scrollbar
+{
+	width: 8px;
+	background-color: #F5F5F5;
+}
+
+.scrollbar-style::-webkit-scrollbar-thumb
+{
+	background-color: #3d6da7;
 }
