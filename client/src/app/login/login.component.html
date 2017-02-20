@@ -14,6 +14,9 @@
           <div *ngIf="loginFailed" class="text-danger">
             <h5 class="text-center">Sorry, but this username is already taken!</h5>
           </div>
+          <div *ngIf="noUserName" class="text-danger">
+            <h5 class="text-center">You have to give a username!</h5>
+          </div>
         </form>
       </div>
     </div>

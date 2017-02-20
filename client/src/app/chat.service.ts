@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 export class ChatService {
 	socket: any;
 	currentUser: string;
+	password: string;
 
 
 	constructor() {
@@ -62,11 +63,13 @@ export class ChatService {
 		return obs;
 	}
 
-	addRoom(roomName: string): Observable<boolean> {
+	addRoom(roomName: string, password: string): Observable<boolean> {
 		// TODO: Validate that the room name is valid! (lol)
+		this.password = password;
 		const observable = new Observable(observer => {
 			const param = {
-				room: roomName
+				room: roomName,
+				pass: password
 			};
 			this.socket.emit('joinroom', param, function(a: boolean, b) {
 				observer.next(a);
@@ -78,7 +81,8 @@ export class ChatService {
 	connectToRoom(roomId: string): Observable<Object> {
 		const obs = new Observable(observer => {
 			const param = {
-				room: roomId
+				room: roomId,
+				pass: this.password
 			};
 			this.socket.emit('joinroom', param, function(a: boolean, b) {
 				const ret = {
@@ -192,6 +196,19 @@ export class ChatService {
 				topic: topic
 			};
 			this.socket.emit('settopic', param, function(a: boolean) {
+				observer.next(a);
+			});
+		});
+		return obs;
+	}
+
+	setPassword(room: string, password: string): Observable<boolean> {
+		const obs = new Observable(observer => {
+			const param = {
+				room: room,
+				password: password
+			};
+			this.socket.emit('setpassword', param, function(a: boolean) {
 				observer.next(a);
 			});
 		});

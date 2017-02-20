@@ -183,7 +183,14 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 			}
 		} else if (this.newMessage.substring(0, 5) === '!part') {
 			this.onPartRoom();
+		} else if (this.newMessage.substring(0, 12) === '!setpassword') {
+			if (this.newMessage.substring(13).length > 0) {
+				this.chatService.setPassword(this.roomId, this.newMessage.substring(13)).subscribe(succeeded => {
+					if (succeeded === false) {
+						console.log('you do not have da ops man!');
+					}
+				});
+			}
 		}
 	}
-
 }
