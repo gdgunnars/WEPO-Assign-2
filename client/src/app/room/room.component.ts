@@ -21,7 +21,7 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 	messageHistory: {}[];
 	roomNotifications: string[] = [];
 	currentNotification: string;
-	isOp: boolean = false;
+	isOp = false;
 
 	constructor(private router: Router,
 		private chatService: ChatService,
@@ -29,11 +29,13 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 
 	ngOnInit() {
 		this.roomId = this.route.snapshot.params['id'];
-		this.chatService.connectToRoom(this.roomId).subscribe(info => {
+
+		this.chatService.connectToRoom(this.roomId, this.chatService.getPassByRoomId(this.roomId)).subscribe(info => {
 			if (info['success'] === false) {
-				this.router.navigateByUrl('/rooms');
+				this.router.navigateByUrl('/rooms/');
 			}
 		});
+
 		this.chatService.getMessage().subscribe(messages => {
 			if (messages['roomName'] === this.roomId) {
 				this.messageHistory = messages['msg'];
@@ -47,8 +49,8 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 				for (const op in obj['ops']) {
 					if (op !== undefined) {
 						opArr.push(op);
-						if (op === this.chatService.getCurrentUser()){
-							console.log("I am setting isOp to true");
+						if (op === this.chatService.getCurrentUser()) {
+							console.log('I am setting isOp to true');
 							this.isOp = true;
 						}
 					}
@@ -64,6 +66,7 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 				}
 			}
 		});
+
 		this.chatService.getTopic().subscribe(obj => {
 			if (obj['roomName'] === this.roomId) {
 				this.roomTopic = obj['topic'];
@@ -183,14 +186,6 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 			}
 		} else if (this.newMessage.substring(0, 5) === '!part') {
 			this.onPartRoom();
-		} else if (this.newMessage.substring(0, 12) === '!setpassword') {
-			if (this.newMessage.substring(13).length > 0) {
-				this.chatService.setPassword(this.roomId, this.newMessage.substring(13)).subscribe(succeeded => {
-					if (succeeded === false) {
-						console.log('you do not have da ops man!');
-					}
-				});
-			}
-		}
+		} 
 	}
 }

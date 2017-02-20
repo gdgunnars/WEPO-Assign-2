@@ -15,6 +15,8 @@ export class RoomListComponent implements OnInit {
 	password: string;
 	newMessage: string;
 	msgReceiver: string;
+	joinPass: string;
+	wrongpass = false;
 
 	constructor(private chatService: ChatService,
 		private router: Router) { }
@@ -49,6 +51,7 @@ export class RoomListComponent implements OnInit {
 		});
 
 	}
+
 	sendPM(user: string) {
 		this.chatService.sendPrivateMsg(user, this.newMessage).subscribe(succeeded => {
 			if (succeeded){
@@ -56,7 +59,20 @@ export class RoomListComponent implements OnInit {
 			}
 		});
 	}
+
 	setMsgReceiver(user: string) {
 		this.msgReceiver = user;
+	}
+
+	attemptToConnectTo(id: string) {
+		this.chatService.connectToRoom(id, this.joinPass).subscribe(info => {
+			if (info['success'] === true) {
+				this.wrongpass = false;
+				this.chatService.addToRoomPassMap(id, this.joinPass);
+				this.router.navigateByUrl('/rooms/' + id);
+			} else {
+				this.wrongpass = true;
+			}
+		});
 	}
 }

@@ -8,6 +8,8 @@ export class ChatService {
 	currentUser: string;
 	password: string;
 	PMs: {} = {};
+	roomPassMap = [{}];
+	foundRoom: boolean;
 
 
 	constructor() {
@@ -28,6 +30,24 @@ export class ChatService {
 		});
 
 		return observable;
+	}
+
+	roomIsLocked(id: string): Observable<boolean> {
+		const obs = new Observable(observer => {
+			this.socket.emit('rooms');
+			this.socket.on('roomlist', (lst) => {
+				let locked = false;
+				for (const room in lst) {
+					if (lst.hasOwnProperty(room)) {
+						if (room === id) {
+							locked = lst[room].locked;
+						}
+					}
+				}
+				observer.next(locked);
+			});
+		});
+		return obs;
 	}
 
 	getRoomList(): Observable<string[]> {
@@ -72,6 +92,7 @@ export class ChatService {
 				room: roomName,
 				pass: password
 			};
+			this.roomPassMap.push(param);
 			this.socket.emit('joinroom', param, function(a: boolean, b) {
 				observer.next(a);
 			});
@@ -79,11 +100,30 @@ export class ChatService {
 		return observable;
 	}
 
-	connectToRoom(roomId: string): Observable<Object> {
+	getPassByRoomId(id: string): string {
+		for (const x in this.roomPassMap) {
+			if (this.roomPassMap[x]['room'] === id) {
+				return this.roomPassMap[x]['pass'];
+			}
+		}
+		return undefined;
+	}
+
+	connectToRoom(roomId: string, pass: string): Observable<Object> {
 		const obs = new Observable(observer => {
+			let password: string;
+			for (const x in this.roomPassMap) {
+				if (this.roomPassMap[x]['room'] === roomId) {
+					this.foundRoom = true;
+					password = this.roomPassMap[x]['pass'];
+				}
+			}
+			if (!this.foundRoom) {
+				password = pass;
+			}
 			const param = {
 				room: roomId,
-				pass: this.password
+				pass: password
 			};
 			this.socket.emit('joinroom', param, function(a: boolean, b) {
 				const ret = {
@@ -95,6 +135,24 @@ export class ChatService {
 			});
 		});
 		return obs;
+	}
+
+	addToRoomPassMap(id: string, pass: string) {
+		let foundRoom = false;
+		for (const x in this.roomPassMap) {
+			if (this.roomPassMap[x]['room'] === id) {
+				foundRoom = true;
+				break;
+			}
+		}
+		if (!foundRoom) {
+			this.roomPassMap.push(
+				{
+					room: id,
+					pass: pass
+				}
+			);
+		}
 	}
 
 	sendMsg(roomId: string, msg: string) {

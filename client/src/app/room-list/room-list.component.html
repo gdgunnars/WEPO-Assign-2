@@ -1,16 +1,20 @@
 <div class="col-sm-4 col-md-3">
+    <input type="password" class="form-control" style="margin-bottom: 10px;" placeholder="channel password" [(ngModel)]="joinPass"/>
+    <div *ngIf="wrongpass" class="text-danger">
+      <h5 class="text-center">Password required!</h5>
+    </div>
   <div class="panel panel-default">
     <div class="panel-heading">Rooms</div>
     <div class="panel-body">
       <div #scrollMe class="scrollabe-roomlist scrollbar-style">
         <div class="row message-bubble" *ngFor="let room of rooms">
-          <span><a [routerLink]="['/rooms', room]">{{room}}</a></span>
+          <span><a class="room-item" (click)="attemptToConnectTo(room)">{{room}}</a></span>
         </div>
       </div>
       <div class="panel-footer">
         <div class="input-group">
           <input type="text" class="form-control" placeholder="room name" [(ngModel)]="newRoomName" (keyup.enter)="onNewRoom()" />
-          <input type="text" class="form-control" placeholder="password (optional)" [(ngModel)]="password" (keyup.enter)="onNewRoom()" />
+          <input type="password" class="form-control" placeholder="password (optional)" [(ngModel)]="password" (keyup.enter)="onNewRoom()" />
             <button class="btn btn-def btn-block" style="width: 100%;" (click)="onNewRoom()">Create new room</button>
         </div>
       </div>
