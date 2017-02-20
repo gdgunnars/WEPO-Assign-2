@@ -10,7 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class NavBarComponent implements OnInit {
 	showNavBar = false;
-	channels: string[];
+	channels: string[] = [];
 	roomId: string;
 	public isCollapsed = true;
 
@@ -48,6 +48,14 @@ export class NavBarComponent implements OnInit {
 					this.channels.splice(index, 1);
 				}
 				this.router.navigateByUrl('/rooms');
+			}
+		});
+		this.chatService.getServerMessage().subscribe( info => {
+			if ( info['type'] === 'part') {
+				if (this.channels.some(x => x === info['room']) && info['user'] === this.chatService.getCurrentUser()) {
+					const index = this.channels.indexOf(info['room']);
+					this.channels.splice(index, 1);
+				}
 			}
 		});
 	}

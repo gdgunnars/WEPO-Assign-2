@@ -20,7 +20,11 @@
 </div>
 <div class="col-sm-8 col-md-9">
   <div class="panel panel-default">
-    <div class="panel-heading">{{roomId}} - <strong class="text-center"> {{roomTopic}} </strong></div>
+    <div class="panel-heading">
+        {{roomId}} - <strong class="text-center"> {{roomTopic}} </strong>
+        <a [routerLink]="['/rooms']" (click)="onPartRoom(channel)" class="pull-right"><i class="glyphicon glyphicon-remove"></i>
+        </a>
+    </div>
     <div class="panel-body">
       <div #scrollChat class="scrollabe-chat scrollbar-style">
         <div class="row message-bubble" *ngFor="let msg of messageHistory">

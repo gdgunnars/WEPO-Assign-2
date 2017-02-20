@@ -268,4 +268,8 @@ export class ChatService {
 		return obs;
 	}
 
+	partRoom(room: string) {
+		this.socket.emit('partroom', room);
+	}
+
 }
