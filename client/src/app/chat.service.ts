@@ -9,8 +9,8 @@ export class ChatService {
 
 
 	constructor() {
-		//this.socket = io('http://localhost:8080/');
-		 this.socket = io ('http://192.168.0.137:8080/');
+		this.socket = io('http://localhost:8080/');
+		//this.socket = io ('http://192.168.0.137:8080/');
 		this.socket.on('connect', function() {
 			console.log('connect');
 		});

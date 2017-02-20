@@ -37,6 +37,16 @@ export class NavBarComponent implements OnInit {
 					const index = this.channels.indexOf(info['room']);
 					this.channels.splice(index, 1);
 				}
+				this.router.navigateByUrl('/rooms');
+			}
+		});
+		this.chatService.getBannedUsers().subscribe(info => {
+			if (info['bannedUser'] === this.chatService.getCurrentUser()) {
+				if (this.channels.some(x => x === info['room'])) {
+					const index = this.channels.indexOf(info['room']);
+					this.channels.splice(index, 1);
+				}
+				this.router.navigateByUrl('/rooms');
 			}
 		});
 	}

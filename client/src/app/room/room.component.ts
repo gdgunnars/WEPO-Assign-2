@@ -26,7 +26,11 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 
 	ngOnInit() {
 		this.roomId = this.route.snapshot.params['id'];
-		this.chatService.connectToRoom(this.roomId);
+		this.chatService.connectToRoom(this.roomId).subscribe(info =>{
+			if (info['success'] === false){
+				this.router.navigateByUrl('/rooms');
+			}
+		});
 		this.chatService.getMessage().subscribe(messages => {
 			if (messages['roomName'] === this.roomId) {
 				this.messageHistory = messages['msg'];
@@ -109,6 +113,14 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 		} else if (this.newMessage.substring(0, 5) === '!kick') {
 			if (this.ops.some(x => x === this.newMessage.substring(6)) || this.users.some(x => x === this.newMessage.substring(6))) {
 				this.chatService.kickUser(this.roomId, this.newMessage.substring(6)).subscribe(succeded => {
+					if (succeded === false) {
+						console.log('you do not have da ops man!');
+					}
+				});
+			}
+		} else if (this.newMessage.substring(0, 4) === '!ban') {
+			if (this.ops.some(x => x === this.newMessage.substring(5)) || this.users.some(x => x === this.newMessage.substring(5))) {
+				this.chatService.banUser(this.roomId, this.newMessage.substring(5)).subscribe(succeded => {
 					if (succeded === false) {
 						console.log('you do not have da ops man!');
 					}
