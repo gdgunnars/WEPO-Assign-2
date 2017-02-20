@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { CollapseDirective } from 'ng2-bootstrap';
 import { ModalModule } from 'ng2-bootstrap/modal';
 import { ButtonsModule } from 'ng2-bootstrap/buttons';
+import { TooltipModule } from 'ng2-bootstrap/tooltip';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -47,7 +48,8 @@ import { AuthService } from './auth.service';
 			canActivate: [AuthGuard]
 		}]),
 		ModalModule.forRoot(),
-		ButtonsModule.forRoot()
+		ButtonsModule.forRoot(),
+		TooltipModule.forRoot()
 	],
 	providers: [ChatService, GlobalEventManagerService, AuthService, AuthGuard],
 	bootstrap: [AppComponent]
