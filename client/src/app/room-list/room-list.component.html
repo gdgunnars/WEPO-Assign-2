@@ -8,7 +8,7 @@
     <div class="panel-body">
       <div #scrollMe class="scrollabe-roomlist scrollbar-style">
         <div class="row message-bubble" *ngFor="let room of rooms">
-          <span><a (click)="attemptToConnectTo(room)">{{room}}</a></span>
+          <span><a class="room-item" (click)="attemptToConnectTo(room)">{{room}}</a></span>
         </div>
       </div>
       <div class="panel-footer">

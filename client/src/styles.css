@@ -129,3 +129,7 @@ body, html {
     margin-right: 20px;
     margin-bottom: 5px;
 }
+
+.room-item:hover {
+    cursor: pointer;
+}
