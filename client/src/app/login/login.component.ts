@@ -12,6 +12,7 @@ import { AuthService } from '../auth.service';
 export class LoginComponent implements OnInit {
 	userName: string;
 	loginFailed: boolean;
+	noUserName = false;
 
 	constructor(private chatService: ChatService,
 		private router: Router,
@@ -26,17 +27,19 @@ export class LoginComponent implements OnInit {
 	}
 
 	onLogin() {
-
-		console.log('Login called in component');
-		this.chatService.login(this.userName).subscribe(succeeded => {
-			console.log('Succeess!!');
-			this.loginFailed = !succeeded;
-			if (succeeded === true) {
-				this.authService.login();
-				// this.globalEventsManager.showNavBar(true);
-				this.globalEventManagerService.showNavBar(true);
-				this.router.navigate(['/rooms']);
-			}
-		});
+		if (this.userName === undefined || this.userName === '') {
+			this.noUserName = true;
+			this.loginFailed = false;
+		} else {
+			this.noUserName = false;
+			this.chatService.login(this.userName).subscribe(succeeded => {
+				this.loginFailed = !succeeded;
+				if (succeeded === true) {
+					this.authService.login();
+					this.globalEventManagerService.showNavBar(true);
+					this.router.navigate(['/rooms']);
+				}
+			});
+		}
 	}
 }
