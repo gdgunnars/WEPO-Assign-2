@@ -186,6 +186,6 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 			}
 		} else if (this.newMessage.substring(0, 5) === '!part') {
 			this.onPartRoom();
-		} 
+		}
 	}
 }

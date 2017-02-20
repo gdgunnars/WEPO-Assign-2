@@ -3,10 +3,10 @@
     <div class="panel-heading"><i class="glyphicon glyphicon-user"></i> Ops</div>
     <div class="panel-body">
       <div #scrollOps class="scrollabe-ops scrollbar-style">
-        <div class="row message-bubble" *ngFor="let op of ops" >
-            <div>
-              <span><a (click)="sendPm(op)"> <i class="glyphicon glyphicon-comment"></i> {{op}}</a></span>
-              <span class="pull-right">
+        <div class="row message-bubble" *ngFor="let op of ops">
+          <div>
+            <span><a (click)="sendPm(op)"> <i class="glyphicon glyphicon-comment"></i> {{op}}</a></span>
+            <span class="pull-right">
                 <div class="btn-group commands" *ngIf="isOp">
                     <label class="btn btn-info btn-xs" (click)="deOp(op)" tooltip="de-Op User" placement="left">
                         <i class="glyphicon glyphicon-save" ></i>
@@ -19,7 +19,7 @@
                     </label>
                 </div>
             </span>
-            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -49,11 +49,11 @@
 <div class="col-sm-7 col-md-8 col-lg-9">
   <div class="panel panel-default">
     <div class="panel-heading">
-        {{roomId}} - <strong class="text-center"> {{roomTopic}} </strong>
-        <button type="button" class="btn btn-info btn-xs" (click)="commands.show()">Chat commands
+      {{roomId}} - <strong class="text-center"> {{roomTopic}} </strong>
+      <button type="button" class="btn btn-info btn-xs" (click)="commands.show()">Chat commands
               <span class="glyphicon glyphicon-info-sign"></span>
           </button>
-        <a (click)="onPartRoom(channel)" class="pull-right"><i class="glyphicon glyphicon-remove"></i>
+      <a (click)="onPartRoom(channel)" class="pull-right"><i class="glyphicon glyphicon-remove"></i>
         </a>
     </div>
     <div class="panel-body">
@@ -91,7 +91,7 @@
             <span aria-hidden="true">&times;</span>
         </button>
       </div>
-        <code>
+      <code>
             <div class="modal-body" *ngFor="let msg of roomNotifications"> {{msg}} </div>
         </code>
     </div>
@@ -107,13 +107,24 @@
             <span aria-hidden="true">&times;</span>
         </button>
       </div>
-        <code>
+      <code>
             <div class="modal-body">
-                <kbd>!op username</kbd>        gives the specified user op privileges,<br />
-                <kbd>!deop username</kbd>      removes op privileges from the specified user,<br />
-                <kbd>!kick username</kbd>      kicks the specifid user from the channel,<br />
-                <kbd>!ban username</kbd>       bans the specifed user from the channel,<br />
-                <kbd>!part</kbd>               leaves the current channel.<br />
+                <div class="container">
+                    <div class="col-md-2">
+                        <kbd>!op username</kbd><br />
+                        <kbd>!deop username</kbd><br />
+                        <kbd>!kick username</kbd><br />
+                        <kbd>!ban username</kbd><br />
+                        <kbd>!part</kbd><br />
+                    </div>
+                    <div>
+                        gives the specified user op privileges<br />
+                        removes op privileges from the specified user<br />
+                        kicks the specifid user from the channel<br />
+                        bans the specifed user from the channel<br />
+                        leaves the current channel<br />
+                    </div>
+                </div>
             </div>
         </code>
     </div>
