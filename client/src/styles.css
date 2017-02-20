@@ -42,7 +42,7 @@ body, html {
 }
 
 .scrollabe-roomlist {
-  height: 65vh;
+  height: 55vh;
   overflow-y: scroll;
   overflow-x: hidden;
 }
