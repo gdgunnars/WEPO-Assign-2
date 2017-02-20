@@ -143,13 +143,17 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 				});
 			}
 		} else if (this.newMessage.substring(0, 4) === '!ban') {
-			if (this.ops.some(x => x === this.newMessage.substring(5)) || this.users.some(x => x === this.newMessage.substring(5))) {
+			if (this.ops.some(x => x === this.newMessage.substring(5)) ||
+			this.users.some(x => x === this.newMessage.substring(5))) {
 				this.chatService.banUser(this.roomId, this.newMessage.substring(5)).subscribe(succeded => {
 					if (succeded === false) {
 						console.log('you do not have da ops man!');
 					}
 				});
 			}
+		} else if (this.newMessage.substring(0,5) === '!part') {
+			this.chatService.partRoom(this.roomId);
+			this.router.navigateByUrl('/rooms');
 		}
 	}
 
