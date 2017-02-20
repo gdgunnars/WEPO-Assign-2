@@ -20,11 +20,11 @@
 </div>
 <div class="col-sm-8 col-md-9">
   <div class="panel panel-default">
-    <div class="panel-heading">{{roomId}} - {{roomTopic}}</div>
+    <div class="panel-heading">{{roomId}} - <strong class="text-center"> {{roomTopic}} </strong></div>
     <div class="panel-body">
       <div #scrollChat class="scrollabe-chat">
         <div class="row message-bubble" *ngFor="let msg of messageHistory">
-          <p class="text-muted">{{msg.time}} > {{msg.nick}}</p>
+          <p class="text-muted">{{msg.timestamp.substring(11,19)}} - {{msg.nick}}</p>
           <span>{{msg.message}}</span>
         </div>
       </div>
