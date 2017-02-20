@@ -54,7 +54,7 @@ export class RoomListComponent implements OnInit {
 
 	sendPM(user: string) {
 		this.chatService.sendPrivateMsg(user, this.newMessage).subscribe(succeeded => {
-			if (succeeded){
+			if (succeeded) {
 				this.router.navigate(['user', user]);
 			}
 		});

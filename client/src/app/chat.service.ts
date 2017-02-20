@@ -354,8 +354,8 @@ export class ChatService {
 					nick: user,
 					message: msg
 				};
-			if (this.PMs[user] === undefined){
-				this.PMs[user] = { username: user, msg: []}
+			if (this.PMs[user] === undefined) {
+				this.PMs[user] = { username: user, msg: []};
 			}
 			this.PMs[user].msg.push(ret);
 			observer.next(ret);
@@ -370,7 +370,7 @@ export class ChatService {
 				nick: user,
 				message: msg
 			};
-			if (this.PMs[user] === undefined){
+			if (this.PMs[user] === undefined) {
 				this.PMs[user] = { username: user, msg: []};
 			}
 			this.PMs[user].msg.push({nick: this.currentUser, message: msg});
@@ -384,7 +384,7 @@ export class ChatService {
 	getPmUsers(): string[] {
 		const usrArr = [];
 		for (const usr in this.PMs) {
-			if (this.PMs.hasOwnProperty(usr)){
+			if (this.PMs.hasOwnProperty(usr)) {
 				usrArr.push(usr);
 			}
 		}
