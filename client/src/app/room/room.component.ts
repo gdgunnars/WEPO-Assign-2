@@ -109,7 +109,7 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 		this.roomNotifications.push(notification);
 	}
 
-	onPartRoom(){
+	onPartRoom() {
 		this.chatService.partRoom(this.roomId);
 	}
 
