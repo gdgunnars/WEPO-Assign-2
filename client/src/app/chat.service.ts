@@ -254,4 +254,18 @@ export class ChatService {
 		return this.currentUser;
 	}
 
+	getServerMessage(): Observable<string> {
+		const obs = new Observable(observer => {
+			this.socket.on('servermessage', (type, room, user) => {
+				const ret = {
+					type: type,
+					room: room,
+					user: user
+				};
+				observer.next(ret);
+			});
+		});
+		return obs;
+	}
+
 }

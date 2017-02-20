@@ -19,6 +19,8 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 	roomTopic: string;
 	newMessage: string;
 	messageHistory: {}[];
+	roomNotifications: string[] = [];
+	currentNotification: string;
 
 	constructor(private router: Router,
 		private chatService: ChatService,
@@ -61,6 +63,21 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 				this.roomTopic = obj['topic'];
 			}
 		});
+		this.chatService.getServerMessage().subscribe(obj => {
+			if (obj['type'] === 'quit') {
+				for (const chan in obj['room']) {
+					if (chan === this.roomId) {
+						const notification = 'User ' + obj['user'] +  ' quit the server!';
+						this.addNotification(notification);
+					}
+				}
+			} else {
+				if (obj['room'] === this.roomId) {
+					const notification = 'User ' + obj['user'] + ' ' + obj['type'] + 'ed room ' + obj['room'];
+					this.addNotification(notification);
+				}
+			}
+		});
 		this.scrollToBottom();
 	}
 
@@ -87,6 +104,13 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 		} catch (err) { }
 	}
 
+	addNotification(notification: string) {
+		this.currentNotification = notification;
+		this.roomNotifications.push(notification);
+	}
+
+
+	// These are all the commands that an OP can send in the chat to control the room
 	commandParsing(msg: string) {
 		if (this.newMessage.substring(0, 6) === '!topic') {
 			this.chatService.setTopic(this.roomId, this.newMessage.substring(6)).subscribe(succeded => {

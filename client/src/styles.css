@@ -89,6 +89,10 @@ body, html {
   height: 100px;
 }
 
-.navbar-default .navbar-toggle:focus {
-    background-color: transparent;
+.room-notification {
+    color: grey;
+}
+
+.navbar-toggle {
+  background-color: transparent !important;
 }

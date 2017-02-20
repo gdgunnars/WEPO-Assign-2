@@ -244,6 +244,8 @@ io.sockets.on('connection', function (socket) {
 		if(rooms[banObj.room].ops[socket.username] !== undefined) {
 			//Remove the channel from the user in the global user roster.
 			delete users[banObj.user].channels[banObj.room];
+			//Remove the user from the ops roster.
+			delete rooms[banObj.room].ops[banObj.user];
 			//Add the user to the ban list and remove him from the room user roster.
 			rooms[banObj.room].banUser(banObj.user);
 			//Kick the user from the room.

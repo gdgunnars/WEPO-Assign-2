@@ -1,6 +1,6 @@
 <div class="col-sm-4 col-md-3">
   <div class="panel panel-default">
-    <div class="panel-heading">Ops</div>
+    <div class="panel-heading"><i class="glyphicon glyphicon-user"></i> Ops</div>
     <div class="panel-body">
       <div #scrollOps class="scrollabe-ops">
         <div class="row message-bubble" *ngFor="let op of ops">
@@ -8,11 +8,11 @@
         </div>
       </div>
     </div>
-    <div class="panel-heading">Users</div>
+    <div class="panel-heading"><i class="glyphicon glyphicon-user"></i> Users</div>
     <div class="panel-body">
       <div #scrollUsers class="scrollabe-users">
         <div class="row message-bubble" *ngFor="let user of users">
-          <span>{{user}} </span><i class="glyphicon glyphicon-user"></i>
+          <span>{{user}} </span>
         </div>
       </div>
     </div>
@@ -24,7 +24,7 @@
     <div class="panel-body">
       <div #scrollChat class="scrollabe-chat">
         <div class="row message-bubble" *ngFor="let msg of messageHistory">
-          <p class="text-muted">{{msg.timestamp.substring(11,19)}} - {{msg.nick}}</p>
+          <p class="text-muted"><kbd>{{msg.timestamp.substring(11,16)}}</kbd> <strong> {{msg.nick}} </strong></p>
           <span>{{msg.message}}</span>
         </div>
       </div>
@@ -38,4 +38,30 @@
       </div>
     </div>
   </div>
+</div>
+<div class="col-sm-8 col-md-9 col-sm-offset-4 col-md-offset-3 room-notification">
+    <button type="button" class="btn btn-primary btn-xs" (click)="history.show()">
+        <span class="glyphicon glyphicon-book"></span>
+    </button>
+    {{currentNotification}}
+</div>
+
+
+<!--Small modal-->
+<div bsModal #history="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Notification History</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="history.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <code>
+                <div class="modal-body" *ngFor="let msg of roomNotifications">
+                    {{msg}}
+                </div>
+            </code>
+        </div>
+    </div>
 </div>
