@@ -11,6 +11,7 @@ export class RoomListComponent implements OnInit {
 
 	rooms: string[];
 	newRoomName: string;
+	password: string;
 
 	constructor(private chatService: ChatService,
 		private router: Router) { }
