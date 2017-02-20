@@ -10,7 +10,7 @@
       <div class="panel-footer">
         <div class="input-group">
           <input type="text" class="form-control" placeholder="room name" [(ngModel)]="newRoomName" (keyup.enter)="onNewRoom()" />
-          <input type="text" class="form-control" placeholder="password (optional)" [(ngModel)]="password" (keyup.enter)="onNewRoom()" />
+          <input type="password" class="form-control" placeholder="password (optional)" [(ngModel)]="password" (keyup.enter)="onNewRoom()" />
             <button class="btn btn-def btn-block" style="width: 100%;" (click)="onNewRoom()">Create new room</button>
         </div>
       </div>
