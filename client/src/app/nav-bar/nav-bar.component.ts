@@ -61,6 +61,11 @@ export class NavBarComponent implements OnInit {
 	}
 
 	onActive(id: string) {
+
+		this.chatService.roomIsLocked(id).subscribe(response => {
+			console.log(response);
+		});
+
 		if (this.router.navigated === false) {
 			// Case when route was not used yet
 			this.router.navigateByUrl('/rooms/' + id);
