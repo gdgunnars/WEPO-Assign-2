@@ -67,7 +67,7 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 			if (obj['type'] === 'quit') {
 				for (const chan in obj['room']) {
 					if (chan === this.roomId) {
-						const notification = 'User ' + obj['user'] +  'quit the server!';
+						const notification = 'User ' + obj['user'] +  ' quit the server!';
 						this.addNotification(notification);
 					}
 				}
