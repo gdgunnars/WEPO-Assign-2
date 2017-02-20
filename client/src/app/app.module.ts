@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import { AlertModule } from 'ng2-bootstrap';
+import { CollapseDirective } from 'ng2-bootstrap'
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -20,7 +22,8 @@ import { AuthService } from './auth.service';
 		LoginComponent,
 		RoomListComponent,
 		RoomComponent,
-		NavBarComponent
+		NavBarComponent,
+		CollapseDirective
 	],
 	imports: [
 		BrowserModule,
@@ -41,7 +44,8 @@ import { AuthService } from './auth.service';
 			path: 'rooms/:id',
 			component: RoomComponent,
 			canActivate: [AuthGuard]
-		}])
+		}]),
+		AlertModule.forRoot()
 	],
 	providers: [ChatService, GlobalEventManagerService, AuthService, AuthGuard],
 	bootstrap: [AppComponent]
