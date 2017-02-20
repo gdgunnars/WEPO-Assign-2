@@ -21,3 +21,36 @@
     </div>
   </div>
 </div>
+<div class="col-sm-4 col-md-3">
+  <div class="panel panel-default">
+    <div class="panel-heading">Users</div>
+    <div class="panel-body">
+      <div #scrollMe class="scrollabe-roomlist scrollbar-style">
+        <div class="row message-bubble" *ngFor="let user of users">
+            <button type="button" class="btn btn-primary btn-xs" (click)="sendMsg.show(); setMsgReceiver(user)">
+                  <i class="glyphicon glyphicon-comment"></i>
+            </button>
+          <span><a [routerLink]="['/user', user]">{{user}}</a></span>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--Small modal-->
+<div bsModal #sendMsg="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Sending private message to {{msgReceiver}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="sendMsg.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <input type="text" class="form-control" placeholder="msg" [(ngModel)]="newMessage" (keyup.enter)="sendPM(msgReceiver)"/>
+      <button class="btn btn-block" style="width: 100%;" (click)="sendPM(msgReceiver)">send</button>
+    </div>
+  </div>
+</div>

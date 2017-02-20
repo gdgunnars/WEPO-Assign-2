@@ -59,7 +59,7 @@
     <div class="panel-body">
       <div #scrollChat class="scrollabe-chat scrollbar-style">
         <div class="row message-bubble" *ngFor="let msg of messageHistory">
-          <p class="text-muted"><kbd>{{msg.timestamp.substring(11,16)}}</kbd> <strong> {{msg.nick}} </strong></p>
+          <p class="text-muted"><kbd> [{{msg.timestamp.substring(11,16)}}]</kbd> &nbsp;<strong> <{{msg.nick}}> </strong></p>
           <span>{{msg.message}}</span>
         </div>
       </div>

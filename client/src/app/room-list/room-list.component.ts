@@ -10,11 +10,13 @@ import { Router } from '@angular/router';
 export class RoomListComponent implements OnInit {
 
 	rooms: string[];
+	users: string[];
 	newRoomName: string;
 	password: string;
+	newMessage: string;
+	msgReceiver: string;
 	joinPass: string;
 	wrongpass = false;
-
 
 	constructor(private chatService: ChatService,
 		private router: Router) { }
@@ -22,6 +24,15 @@ export class RoomListComponent implements OnInit {
 	ngOnInit() {
 		this.chatService.getRoomList().subscribe(lst => {
 			this.rooms = lst;
+		});
+		this.chatService.getUserList().subscribe( lst => {
+			this.users = lst;
+		});
+		this.chatService.getServerMessage().subscribe(obj => {
+			if (obj['type'] === 'quit') {
+				const index = this.users.indexOf(obj['user']);
+				this.users.splice(index, 1);
+			}
 		});
 	}
 
@@ -41,6 +52,18 @@ export class RoomListComponent implements OnInit {
 
 	}
 
+	sendPM(user: string) {
+		this.chatService.sendPrivateMsg(user, this.newMessage).subscribe(succeeded => {
+			if (succeeded){
+				this.router.navigate(['user', user]);
+			}
+		});
+	}
+
+	setMsgReceiver(user: string) {
+		this.msgReceiver = user;
+	}
+
 	attemptToConnectTo(id: string) {
 		this.chatService.connectToRoom(id, this.joinPass).subscribe(info => {
 			if (info['success'] === true) {
@@ -51,12 +74,5 @@ export class RoomListComponent implements OnInit {
 				this.wrongpass = true;
 			}
 		});
-
-		/*
-		this.chatService.roomIsLocked(id).subscribe(succeeded => {
-			if (succeeded === true) {
-
-			}
-		});*/
 	}
 }

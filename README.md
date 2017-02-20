@@ -45,7 +45,7 @@ with an exclamation mark. Following is a full list of available commands:
 All of these commands have buttons in the UI that you can use as well.
 To send a private message, click the messaging icon next to a users name.
 
-Run gulp tslint to run tslint on the code. 
+Run gulp tslint to run tslint on the code.
 
 Bonus features
 -------
@@ -60,3 +60,8 @@ Known Issues
 
 - As of now, there is no way to unban a user that has previously been banned.
 - There is no way to remove a password from a channel, nor change it.
+- TSlint complains about syntax being wrong that is required for ng2-bootstrap
+to work properly, so we did not figure out how to fix these without breaking the
+functionality.
+- When you send a private msg to a user, the sender sees his message twice, while
+the recipient only sees the msg once.

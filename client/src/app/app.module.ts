@@ -17,6 +17,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { GlobalEventManagerService } from './global-event-manager.service';
 import { AuthGuard } from './authguard.service';
 import { AuthService } from './auth.service';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
 	declarations: [
@@ -25,7 +26,8 @@ import { AuthService } from './auth.service';
 		RoomListComponent,
 		RoomComponent,
 		NavBarComponent,
-		CollapseDirective
+		CollapseDirective,
+		UserComponent
 	],
 	imports: [
 		BrowserModule,
@@ -45,6 +47,10 @@ import { AuthService } from './auth.service';
 		}, {
 			path: 'rooms/:id',
 			component: RoomComponent,
+			canActivate: [AuthGuard]
+		}, {
+			path: 'user/:id',
+			component: UserComponent,
 			canActivate: [AuthGuard]
 		}]),
 		ModalModule.forRoot(),
