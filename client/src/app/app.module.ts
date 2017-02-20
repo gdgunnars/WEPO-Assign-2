@@ -11,6 +11,8 @@ import { RoomComponent } from './room/room.component';
 import { ChatService } from './chat.service';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { GlobalEventManagerService } from './global-event-manager.service';
+import { AuthGuard } from './authguard.service';
+import { AuthService } from './auth.service';
 
 @NgModule({
 	declarations: [
@@ -33,16 +35,15 @@ import { GlobalEventManagerService } from './global-event-manager.service';
 			component: LoginComponent
 		}, {
 			path: 'rooms',
-			component: RoomListComponent
+			component: RoomListComponent,
+			canActivate: [AuthGuard]
 		}, {
 			path: 'rooms/:id',
-			component: RoomComponent
-		}, {
-			path: 'rooms/:id',
-			component: NavBarComponent
+			component: RoomComponent,
+			canActivate: [AuthGuard]
 		}])
 	],
-	providers: [ChatService, GlobalEventManagerService],
+	providers: [ChatService, GlobalEventManagerService, AuthService, AuthGuard],
 	bootstrap: [AppComponent]
 })
 

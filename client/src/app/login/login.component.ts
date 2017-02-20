@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ChatService } from '../chat.service';
 import { Router } from '@angular/router';
 import { GlobalEventManagerService } from './../global-event-manager.service';
+import { AuthService } from '../auth.service';
 
 @Component({
 	selector: 'app-login',
@@ -14,7 +15,8 @@ export class LoginComponent implements OnInit {
 
 	constructor(private chatService: ChatService,
 		private router: Router,
-		private globalEventManagerService: GlobalEventManagerService) {
+		private globalEventManagerService: GlobalEventManagerService,
+		private authService: AuthService) {
 
 	}
 
@@ -24,11 +26,13 @@ export class LoginComponent implements OnInit {
 	}
 
 	onLogin() {
+
 		console.log('Login called in component');
 		this.chatService.login(this.userName).subscribe(succeeded => {
 			console.log('Succeess!!');
 			this.loginFailed = !succeeded;
 			if (succeeded === true) {
+				this.authService.login();
 				// this.globalEventsManager.showNavBar(true);
 				this.globalEventManagerService.showNavBar(true);
 				this.router.navigate(['/rooms']);

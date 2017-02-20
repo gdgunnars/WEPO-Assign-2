@@ -26,8 +26,8 @@ export class RoomComponent implements OnInit, AfterViewChecked {
 
 	ngOnInit() {
 		this.roomId = this.route.snapshot.params['id'];
-		this.chatService.connectToRoom(this.roomId).subscribe(info =>{
-			if (info['success'] === false){
+		this.chatService.connectToRoom(this.roomId).subscribe(info => {
+			if (info['success'] === false) {
 				this.router.navigateByUrl('/rooms');
 			}
 		});

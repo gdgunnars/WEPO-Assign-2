@@ -10,7 +10,7 @@ export class ChatService {
 
 	constructor() {
 		this.socket = io('http://localhost:8080/');
-		//this.socket = io ('http://192.168.0.137:8080/');
+		// this.socket = io ('http://192.168.0.137:8080/');
 		this.socket.on('connect', function() {
 			console.log('connect');
 		});
@@ -76,7 +76,7 @@ export class ChatService {
 	}
 
 	connectToRoom(roomId: string): Observable<Object> {
-		const obs = new Observable(observer =>{
+		const obs = new Observable(observer => {
 			const param = {
 				room: roomId
 			};
@@ -86,7 +86,7 @@ export class ChatService {
 					reason: b
 				};
 				observer.next(ret);
-				console.log('connectToRoom returns: ' + a, " if reason: " + b);
+				console.log('connectToRoom returns: ' + a, ' if reason: ' + b);
 			});
 		});
 		return obs;
