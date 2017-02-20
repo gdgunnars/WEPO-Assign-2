@@ -7,11 +7,12 @@ export class ChatService {
 	socket: any;
 	currentUser: string;
 	password: string;
+	PMs: {} = {};
 
 
 	constructor() {
-		this.socket = io('http://localhost:8080/');
-		// this.socket = io ('http://192.168.0.137:8080/');
+		//this.socket = io('http://localhost:8080/');
+		 this.socket = io ('http://192.168.0.137:8080/');
 		this.socket.on('connect', function() {
 			console.log('connect');
 		});
@@ -287,6 +288,55 @@ export class ChatService {
 
 	partRoom(room: string) {
 		this.socket.emit('partroom', room);
+	}
+
+	getPrivateMsg(): Observable<string[]> {
+		const obs = new Observable(observer => {
+			this.socket.on('recv_privatemsg', (user, msg) => {
+				const ret = {
+					nick: user,
+					message: msg
+				};
+			if (this.PMs[user] === undefined){
+				this.PMs[user] = { username: user, msg: []}
+			}
+			this.PMs[user].msg.push(ret);
+			observer.next(ret);
+			});
+		});
+		return obs;
+	}
+
+	sendPrivateMsg(user: string, msg: string): Observable<boolean> {
+		const obs = new Observable(observer => {
+			const param = {
+				nick: user,
+				message: msg
+			}
+			if (this.PMs[user] === undefined){
+				this.PMs[user] = { username: user, msg: []}
+			}
+			this.PMs[user].msg.push({nick: this.currentUser, message: msg});
+			this.socket.emit('privatemsg', param, function(a: boolean) {
+				observer.next(a);
+			});
+		});
+		return obs;
+	}
+
+	getPmUsers(): string[] {
+		const usrArr = [];
+		for (const usr in this.PMs) {
+			usrArr.push(usr);
+		}
+		return usrArr;
+	}
+
+	getPmessagesFromUser(user: string) : string[] {
+		if ( this.PMs[user] !== undefined) {
+			return this.PMs[user].msg;
+		}
+		return [];
 	}
 
 }
