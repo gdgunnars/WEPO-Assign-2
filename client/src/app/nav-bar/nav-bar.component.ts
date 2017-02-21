@@ -60,7 +60,7 @@ export class NavBarComponent implements OnInit {
 			}
 		});
 		this.chatService.getPrivateMsg().subscribe( msg => {
-			//console.log(msg);
+			// console.log(msg);
 		});
 	}
 
